@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            user-select: none;
+            -webkit-user-select: none;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Animations */
+        @keyframes slideInRight {
+            from { transform: translateX(30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideInLeft {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .animate-slide-right { animation: slideInRight 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .animate-slide-left { animation: slideInLeft 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        @keyframes fadeInZoom {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes fadeOutZoom {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(0.95); opacity: 0; }
+        }
+        
+        .window-enter { animation: fadeInZoom 0.2s ease-out forwards; }
+        /* Speed up closing animation to 0.1s */
+        .window-exit { animation: fadeOutZoom 0.1s ease-in forwards; }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; background-color: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-track { background-color: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(0, 0, 0, 0.2); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: rgba(0, 0, 0, 0.3); }
+        
+        /* Hide scrollbar for clean UI but allow scroll */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-[#e3e3e3] w-screen h-screen relative overflow-hidden">
+
+    <!-- Layer 1: Desktop Icons -->
+    <div id="desktop-layer" class="absolute inset-0 z-10 p-8 pt-24 flex flex-col flex-wrap content-start items-start gap-6" onclick="deselectDesktop()">
+        <!-- Injected by JS -->
+    </div>
+
+    <!-- Layer 2: Footer -->
+    <div id="footer-layer" class="absolute inset-0 z-10 pointer-events-none">
+        <!-- Injected by JS -->
+    </div>
+
+    <!-- Layer 3: Top Bar (UI) -->
+    <div id="ui-layer" class="absolute inset-0 z-20 pointer-events-none">
+        <!-- Injected by JS -->
+    </div>
+
+    <!-- Layer 4: Window Overlay -->
+    <div id="window-layer" class="absolute inset-0 z-30 pointer-events-none flex items-center justify-center p-4 sm:p-12">
+        <!-- Injected by JS -->
+    </div>
+
+    <script>
+        // --- DATA ---
+        const TRANSLATIONS = {
+            en: {
+                websites: "Websites",
+                photos: "Gallery",
+                icons: "Icon Library",
+                contact: "Contact.txt",
+                label_type: "Type",
+                label_tech: "Language",
+                created: "Created",
+                openSite: "Open Website",
+                preview: "Preview",
+                showMore: "Show More",
+                showLess: "Show Less",
+                info: "Information",
+                
+                project1_name: "Personal Portfolio",
+                project1_desc: "A clean, responsive portfolio website showcasing my design works.",
+                type_personal: "Personal Project",
+                project2_name: "E-Commerce Concept",
+                project2_desc: "Modern shopping experience design with seamless checkout flow.",
+                type_concept: "Concept / Design",
+                project3_name: "Travel Blog",
+                project3_desc: "A minimal blog capturing adventures around the world.",
+                project4_name: "Dashboard UI",
+                project4_desc: "Analytics dashboard with real-time data visualization.",
+                type_commercial: "Commercial",
+                
+                text_kind: "Plain Text Document",
+                contact_content: "Name: John Doe\nEmail: hello@example.com\nPhone: +1 (555) 123-4567\nWebsite: www.johndoe.design\n\nFeel free to reach out for collaborations!"
+            },
+            zh: {
+                websites: "我的网站",
+                photos: "摄影集",
+                icons: "图标库",
+                contact: "联系方式.txt",
+                label_type: "类型",
+                label_tech: "语言/技术",
+                created: "创建日期",
+                openSite: "访问网站",
+                preview: "预览",
+                showMore: "展开信息",
+                showLess: "收起信息",
+                info: "信息",
+                
+                project1_name: "个人作品集",
+                project1_desc: "展示我设计作品的简洁响应式网站。",
+                type_personal: "个人项目",
+                project2_name: "电商概念站",
+                project2_desc: "具有流畅结账流程的现代购物体验设计。",
+                type_concept: "概念设计",
+                project3_name: "旅行博客",
+                project3_desc: "记录世界各地冒险经历的极简博客。",
+                project4_name: "仪表盘 UI",
+                project4_desc: "具有实时数据可视化的分析仪表板。",
+                type_commercial: "商业项目",
+                
+                text_kind: "纯文本文件",
+                contact_content: "姓名: 张三\n邮箱: hello@example.com\n电话: +86 138 0000 0000\n网站: www.zhangsan.design\n\n欢迎随时联系合作！"
+            },
+            ja: {
+                websites: "Webサイト",
+                photos: "ギャラリー",
+                icons: "アイコン素材",
+                contact: "連絡先.txt",
+                label_type: "タイプ",
+                label_tech: "言語/技術",
+                created: "作成日",
+                openSite: "サイトを開く",
+                preview: "プレビュー",
+                showMore: "詳細を表示",
+                showLess: "詳細を隠す",
+                info: "情報",
+                
+                project1_name: "ポートフォリオ",
+                project1_desc: "デザイン作品を紹介するシンプルでレスポンシブなサイト。",
+                type_personal: "個人プロジェクト",
+                project2_name: "ECサイトコンセプト",
+                project2_desc: "スムーズな決済フローを備えたモダンなショッピング体験。",
+                type_concept: "コンセプト",
+                project3_name: "旅行ブログ",
+                project3_desc: "世界中の冒険を記録するミニマルなブログ。",
+                project4_name: "ダッシュボードUI",
+                project4_desc: "リアルタイムデータ視覚化を備えた分析ダッシュボード。",
+                type_commercial: "商用プロジェクト",
+                
+                text_kind: "プレーンテキスト",
+                contact_content: "名前: 山田 太郎\nメール: hello@example.com\n電話: 090-0000-0000\nWeb: www.yamada.design\n\nお仕事のご依頼お待ちしております！"
+            }
+        };
+
+        const WEBSITE_FILES = [
+            { id: 'p1', nameKey: 'project1_name', descKey: 'project1_desc', typeKey: 'type_personal', tech: 'React / Tailwind', imageColor: 'bg-indigo-400', url: '#', date: '2023-10-15' },
+            { id: 'p2', nameKey: 'project2_name', descKey: 'project2_desc', typeKey: 'type_concept', tech: 'Next.js / Stripe', imageColor: 'bg-emerald-400', url: '#', date: '2023-11-02' },
+            { id: 'p3', nameKey: 'project3_name', descKey: 'project3_desc', typeKey: 'type_personal', tech: 'Hugo / Markdown', imageColor: 'bg-orange-400', url: '#', date: '2024-01-20' },
+            { id: 'p4', nameKey: 'project4_name', descKey: 'project4_desc', typeKey: 'type_commercial', tech: 'Vue / D3.js', imageColor: 'bg-blue-400', url: '#', date: '2024-02-14' }
+        ];
+
+        const PHOTO_FILES = [
+            { id: 'ph1', url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=800&auto=format&fit=crop', title: 'Mountain' },
+            { id: 'ph2', url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800&auto=format&fit=crop', title: 'Forest' },
+            { id: 'ph3', url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=800&auto=format&fit=crop', title: 'Valley' },
+            { id: 'ph4', url: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop', title: 'Lake' },
+            { id: 'ph5', url: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=800&auto=format&fit=crop', title: 'Field' },
+            { id: 'ph6', url: 'https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=800&auto=format&fit=crop', title: 'Waterfall' },
+            { id: 'ph7', url: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=800&auto=format&fit=crop', title: 'Tree' },
+            { id: 'ph8', url: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=800&auto=format&fit=crop', title: 'Ocean' },
+        ];
+
+        // --- STATE MANAGEMENT ---
+        const state = {
+            lang: 'en',
+            selectedDesktopId: null,
+            openFolderId: null,
+            selectedFileId: WEBSITE_FILES[0].id,
+            selectedPhotoId: PHOTO_FILES[0].id,
+            galleryViewMode: 'single', // 'single' or 'grid'
+            isDetailsExpanded: false,
+            langDropdownOpen: false,
+            slideDirection: 'right',
+            isClosing: false, // Track closing state
+            showHidden: false // Track hidden files visibility
+        };
+
+        // --- HELPER ---
+        function safeRenderIcons(rootElement) {
+            if (window.lucide) {
+                if(rootElement) {
+                    lucide.createIcons({ root: rootElement });
+                } else {
+                    lucide.createIcons();
+                }
+            }
+        }
+
+        // --- CORE FUNCTIONS ---
+        
+        function t(key) {
+            return TRANSLATIONS[state.lang][key] || key;
+        }
+
+        // Main entry point - Updates all layers
+        function render() {
+            renderTopBar();
+            renderDesktop();
+            renderFooter();
+            renderWindow();
+        }
+
+        // Layer 1: Desktop
+        function renderDesktop() {
+            const container = document.getElementById('desktop-layer');
+            const icons = [
+                { id: 'websites', icon: 'folder', label: t('websites'), color: '#5ea0d6', fill: '#7dc0f5' },
+                { id: 'photos', icon: 'folder', label: t('photos'), color: '#5ea0d6', fill: '#7dc0f5' },
+                { id: 'contact', icon: 'file-text', label: t('contact'), color: '#525252', fill: 'white' }
+            ];
+
+            // Add hidden folder if state.showHidden is true
+            if (state.showHidden) {
+                icons.push({ 
+                    id: 'hidden', 
+                    icon: 'folder-lock', 
+                    label: '.secret', 
+                    color: '#9ca3af', 
+                    fill: '#d1d5db',
+                    isHidden: true
+                });
+            }
+
+            container.innerHTML = icons.map(icon => `
+                <div 
+                    onclick="selectDesktop(event, '${icon.id}')"
+                    ondblclick="openFolder('${icon.id}')"
+                    class="flex flex-col items-center justify-start w-28 p-3 rounded-lg cursor-pointer transition-all duration-100 group ${state.selectedDesktopId === icon.id ? 'bg-blue-300/40 border border-blue-400/30 backdrop-blur-sm' : 'hover:bg-black/5 border border-transparent'} ${icon.isHidden ? 'opacity-60 hover:opacity-100' : ''}"
+                >
+                    <div class="mb-1 relative">
+                        <i data-lucide="${icon.icon}" width="${icon.icon === 'folder' || icon.icon === 'folder-lock' ? 56 : 48}" height="${icon.icon === 'folder' || icon.icon === 'folder-lock' ? 56 : 56}" stroke-width="1" class="${icon.id === 'contact' ? 'text-neutral-600' : icon.isHidden ? 'text-neutral-500' : 'text-[#5ea0d6]'}" ${icon.id === 'contact' ? 'fill="white"' : icon.isHidden ? 'fill="#e5e7eb"' : 'fill="#7dc0f5"'}></i>
+                    </div>
+                    <span class="text-xs text-center font-medium px-2 py-0.5 rounded leading-tight select-none ${state.selectedDesktopId === icon.id ? 'text-neutral-900' : 'text-neutral-700'}" style="text-shadow: ${state.selectedDesktopId === icon.id ? 'none' : '0 1px 2px rgba(255,255,255,0.8)'}">
+                        ${icon.label}
+                    </span>
+                </div>
+            `).join('');
+            
+            safeRenderIcons(container);
+        }
+
+        // Layer 2: Footer
+        function renderFooter() {
+            const container = document.getElementById('footer-layer');
+            container.innerHTML = `
+                <div class="absolute bottom-6 right-8 pointer-events-none select-none">
+                    <p class="text-[10px] text-neutral-400/80 font-medium tracking-widest uppercase">
+                        © 2025 zenglujin. All Rights Reserved.
+                    </p>
+                </div>
+            `;
+        }
+
+        // Layer 3: Top Bar
+        function renderTopBar() {
+            const container = document.getElementById('ui-layer');
+            const langLabel = { en: 'English', zh: '中文', ja: '日本語' }[state.lang];
+            
+            let dropdownHTML = '';
+            if (state.langDropdownOpen) {
+                dropdownHTML = `
+                    <div class="absolute right-0 mt-2 w-32 bg-white/95 backdrop-blur-xl rounded-xl shadow-xl border border-white/20 py-2 overflow-hidden z-[60] pointer-events-auto">
+                        ${['en', 'zh', 'ja'].map(l => `
+                            <button onclick="changeLang('${l}')" class="w-full text-left px-4 py-2 text-sm flex items-center justify-between ${state.lang === l ? 'bg-neutral-100 font-bold' : 'hover:bg-neutral-50 ' + (l === 'en' ? '' : 'font-medium')}">
+                                <span>${{en:'English', zh:'中文', ja:'日本語'}[l]}</span>
+                                ${state.lang === l ? '<div class="w-1.5 h-1.5 rounded-full bg-neutral-800"></div>' : ''}
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <div class="absolute top-0 left-0 w-full p-6 flex justify-between items-start z-30 pointer-events-none">
+                    <div></div>
+                    <div class="pointer-events-auto relative">
+                        <button onclick="toggleLangDropdown()" class="flex items-center gap-2 px-4 py-2 bg-white/50 backdrop-blur-md rounded-full text-sm font-medium text-neutral-800 hover:bg-white/80 transition-all shadow-sm border border-white/40">
+                            <i data-lucide="globe" width="16"></i>
+                            <span>${langLabel}</span>
+                        </button>
+                        ${dropdownHTML}
+                    </div>
+                </div>
+            `;
+            
+            safeRenderIcons(container);
+        }
+
+        // Layer 4: Window (Incremental Update Logic)
+        function renderWindow() {
+            const layer = document.getElementById('window-layer');
+            
+            // If closed and not animating close, empty it
+            if (!state.openFolderId && !state.isClosing) {
+                layer.innerHTML = '';
+                return;
+            }
+
+            const folderName = state.openFolderId === 'websites' ? t('websites') : 
+                               state.openFolderId === 'photos' ? t('photos') : 
+                               state.openFolderId === 'hidden' ? '.secret' :
+                               t('contact');
+            const iconType = state.openFolderId === 'contact' ? 'file-text' : 
+                             state.openFolderId === 'photos' ? 'image' : 
+                             state.openFolderId === 'hidden' ? 'lock' : 'folder';
+
+            const existingWindow = document.getElementById('active-window');
+
+            if (!existingWindow) {
+                // Initial Render (create frame)
+                // Note: Added z-50 relative to active-window so it sits above the z-40 overlay
+                // CRITICAL FIX: Added pointer-events-auto to the background overlay so it captures clicks
+                layer.innerHTML = `
+                    <div class="absolute inset-0 z-40 pointer-events-auto" onclick="closeWindow()"></div>
+                    <div id="active-window" class="relative z-50 pointer-events-auto bg-white w-full h-full max-w-6xl max-h-[800px] rounded-xl shadow-2xl flex flex-col overflow-hidden border border-neutral-300 window-enter">
+                        <div class="h-12 bg-[#f1f1f1] border-b border-neutral-300 flex items-center justify-between px-4 shrink-0" id="window-header"></div>
+                        <div id="window-content" class="flex-1 flex overflow-hidden bg-white relative"></div>
+                    </div>
+                `;
+            }
+
+            // Update Header
+            const header = document.getElementById('window-header');
+            if(header) {
+                header.innerHTML = `
+                    <div class="flex items-center gap-2 group">
+                        <button onclick="closeWindow()" class="w-3.5 h-3.5 rounded-full bg-[#ff5f57] border border-[#e0443e] flex items-center justify-center hover:opacity-80">
+                            <i data-lucide="x" width="8" stroke-width="3" class="opacity-0 group-hover:opacity-100 text-black/60"></i>
+                        </button>
+                        <!-- Updated: dots are now always visible with bg-black/20 -->
+                        <button class="w-3.5 h-3.5 rounded-full bg-[#febc2e] border border-[#d89e24] flex items-center justify-center cursor-default">
+                             <div class="w-1 h-1 rounded-full bg-black/20"></div>
+                        </button>
+                        <button class="w-3.5 h-3.5 rounded-full bg-[#28c840] border border-[#1aab29] flex items-center justify-center cursor-default">
+                             <div class="w-1 h-1 rounded-full bg-black/20"></div>
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-2 text-neutral-700 font-semibold absolute left-1/2 -translate-x-1/2">
+                        <i data-lucide="${iconType}" width="16" class="text-neutral-500"></i>
+                        <span class="text-sm">${folderName}</span>
+                    </div>
+                    <div class="w-14 flex justify-end">
+                        ${state.openFolderId === 'photos' && state.galleryViewMode === 'single' ? `
+                            <button onclick="setGalleryMode('grid')" class="p-1.5 rounded-md hover:bg-neutral-200 text-neutral-600" title="Grid View">
+                                <i data-lucide="layout-grid" width="18"></i>
+                            </button>
+                        ` : ''}
+                    </div>
+                `;
+                safeRenderIcons(header);
+            }
+
+            // Update Content
+            const contentContainer = document.getElementById('window-content');
+            
+            // Save scrolls
+            const sidebarScroll = document.getElementById('sidebar-scroll');
+            const savedSidebarScroll = sidebarScroll ? sidebarScroll.scrollTop : 0;
+            const detailScroll = document.getElementById('detail-scroll');
+            const savedDetailScroll = detailScroll ? detailScroll.scrollTop : 0;
+            const gridScroll = document.getElementById('grid-scroll');
+            const savedGridScroll = gridScroll ? gridScroll.scrollTop : 0;
+
+            let newContent = '';
+            if (state.openFolderId === 'websites') newContent = getWebsitesContent();
+            else if (state.openFolderId === 'photos') newContent = getPhotosContent();
+            else if (state.openFolderId === 'contact') newContent = getContactContent();
+            else if (state.openFolderId === 'hidden') newContent = getHiddenContent();
+
+            if(contentContainer) {
+                contentContainer.innerHTML = newContent;
+                safeRenderIcons(contentContainer);
+            }
+
+            // Restore scrolls
+            const newSidebarScroll = document.getElementById('sidebar-scroll');
+            if (newSidebarScroll) newSidebarScroll.scrollTop = savedSidebarScroll;
+            const newDetailScroll = document.getElementById('detail-scroll');
+            if (newDetailScroll) newDetailScroll.scrollTop = savedDetailScroll;
+            const newGridScroll = document.getElementById('grid-scroll');
+            if (newGridScroll) newGridScroll.scrollTop = savedGridScroll;
+
+            // Attach listeners
+            const thumbStrip = document.getElementById('thumbnail-strip');
+            if (thumbStrip) {
+                thumbStrip.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    thumbStrip.scrollLeft += e.deltaY;
+                });
+            }
+        }
+
+        // --- CONTENT GENERATORS ---
+
+        function getWebsitesContent() {
+            const selectedFile = WEBSITE_FILES.find(f => f.id === state.selectedFileId) || WEBSITE_FILES[0];
+            
+            // Calculate classes for the sliding animation
+            // Image wrapper classes for animation (bottom constraint and padding)
+            const imageWrapperClass = state.isDetailsExpanded ? 'bottom-[45%] pb-8' : 'bottom-0 pb-24';
+            
+            const translateClass = state.isDetailsExpanded ? 'translate-y-0' : 'translate-y-[calc(100%-60px)]';
+            const arrowIcon = state.isDetailsExpanded ? 'chevron-down' : 'chevron-up';
+            const toggleText = state.isDetailsExpanded ? t('showLess') : t('showMore');
+
+            return `
+                <div id="sidebar-scroll" class="w-64 bg-[#f5f5f5]/80 backdrop-blur-xl border-r border-neutral-200 flex flex-col overflow-y-auto pt-2 shrink-0">
+                    <div class="px-3 py-2 text-[10px] font-bold text-neutral-400 uppercase tracking-wider">${t('websites')}</div>
+                    ${WEBSITE_FILES.map(file => `
+                        <div onclick="selectFile('${file.id}')" class="mx-2 px-3 py-2 rounded-md flex items-center gap-3 cursor-pointer text-sm transition-colors mb-1 ${state.selectedFileId === file.id ? 'bg-blue-500 text-white shadow-sm' : 'text-neutral-700 hover:bg-neutral-200/60'}">
+                            <i data-lucide="globe" width="16" class="${state.selectedFileId === file.id ? 'text-blue-100' : 'text-neutral-500'}"></i>
+                            <span class="truncate font-medium">${t(file.nameKey)}</span>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="flex-1 bg-white relative h-full overflow-hidden min-w-0 group/container">
+                    <!-- Image Area with Animation -->
+                    <div id="website-image-wrapper" class="absolute top-0 left-0 right-0 ${imageWrapperClass} p-8 flex items-center justify-center bg-neutral-50/30 transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]">
+                        <div key="${selectedFile.id}" class="h-full w-auto aspect-video max-w-full rounded-lg border border-neutral-200 flex flex-col items-center justify-center text-white relative group overflow-hidden ${selectedFile.imageColor} shadow-sm">
+                            <i data-lucide="image" width="48" class="opacity-50 mb-2"></i>
+                            <span class="font-semibold opacity-75">${t('preview')}</span>
+                            <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <a href="${selectedFile.url}" target="_blank" class="bg-white/20 backdrop-blur-md border border-white/50 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors flex items-center gap-2">
+                                    ${t('openSite')} <i data-lucide="external-link" width="14"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Detail Panel Overlay -->
+                    <div id="detail-panel" class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-neutral-200 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] shadow-[0_-10px_40px_rgba(0,0,0,0.05)] ${translateClass} z-10 flex flex-col" style="max-height: 75%;">
+                        
+                        <!-- Header -->
+                        <div onclick="toggleDetails()" class="h-[60px] px-6 flex items-center justify-between cursor-pointer hover:bg-white/50 transition-colors shrink-0">
+                            <h2 class="text-xl font-semibold text-neutral-900 flex items-center gap-3 truncate">
+                                <i data-lucide="globe" width="24" class="text-blue-500 shrink-0"></i>
+                                <span class="truncate">${t(selectedFile.nameKey)}</span>
+                            </h2>
+                            <button class="flex items-center gap-1 text-xs font-medium text-blue-500 bg-blue-50 px-2 py-1 rounded-full shrink-0 ml-4">
+                                <span id="detail-text">${toggleText}</span>
+                                <i id="detail-arrow" data-lucide="${arrowIcon}" width="14"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="overflow-y-auto custom-scrollbar flex-1 bg-transparent">
+                            <div class="px-8 pb-10 pt-2">
+                                 <div class="grid grid-cols-[80px_1fr] gap-y-3 text-sm max-w-2xl">
+                                    <div class="text-neutral-400 font-medium text-right pr-4">${t('label_type')}</div>
+                                    <div class="text-neutral-700">${t(selectedFile.typeKey)}</div>
+                                    <div class="text-neutral-400 font-medium text-right pr-4">${t('label_tech')}</div>
+                                    <div class="text-neutral-700">${selectedFile.tech}</div>
+                                    <div class="text-neutral-400 font-medium text-right pr-4">${t('created')}</div>
+                                    <div class="text-neutral-700">${selectedFile.date}</div>
+                                    <div class="text-neutral-400 font-medium text-right pr-4">${t('info')}</div>
+                                    <div class="text-neutral-600 leading-relaxed">${t(selectedFile.descKey)}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getPhotosContent() {
+            if (state.galleryViewMode === 'grid') {
+                return `
+                    <div id="grid-scroll" class="flex-1 bg-white p-6 overflow-y-auto">
+                        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6">
+                            ${PHOTO_FILES.map(photo => `
+                                <div onclick="selectPhotoAndSwitch('${photo.id}')" class="group cursor-pointer flex flex-col gap-2">
+                                    <div class="aspect-[4/3] w-full rounded-md overflow-hidden bg-neutral-100 shadow-sm border border-neutral-200 group-hover:shadow-md transition-all">
+                                        <img src="${photo.url}" alt="${photo.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            const selectedPhoto = PHOTO_FILES.find(p => p.id === state.selectedPhotoId) || PHOTO_FILES[0];
+
+            return `
+                <div class="flex-1 bg-white flex flex-col overflow-hidden">
+                    <div class="flex-1 bg-white flex items-center justify-center p-4 overflow-hidden relative" onwheel="handlePhotoWheel(event)">
+                        <img 
+                            key="${selectedPhoto.id}"
+                            src="${selectedPhoto.url}" 
+                            class="max-w-full max-h-full object-contain rounded-sm ${state.slideDirection === 'right' ? 'animate-slide-right' : 'animate-slide-left'}"
+                        />
+                    </div>
+                    <div id="thumbnail-strip" class="h-20 bg-neutral-50 border-t border-neutral-200 p-4 flex gap-3 overflow-x-auto shrink-0 items-center custom-scrollbar">
+                        ${PHOTO_FILES.map(photo => `
+                            <button 
+                                onclick="selectPhoto('${photo.id}')"
+                                class="h-full aspect-[4/3] rounded-md overflow-hidden border-2 transition-all shrink-0 relative group ${state.selectedPhotoId === photo.id ? 'border-blue-500 shadow-md scale-105' : 'border-transparent opacity-70 hover:opacity-100 hover:scale-105'}"
+                            >
+                                <img src="${photo.url}" class="w-full h-full object-cover" />
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function getContactContent() {
+            return `
+                <div class="flex-1 bg-white flex flex-col font-mono text-sm outline-none">
+                    <div class="p-2 border-b border-neutral-100 text-xs text-neutral-400 flex items-center gap-2">
+                        <span>UTF-8</span>
+                        <span class="w-px h-3 bg-neutral-200"></span>
+                        <span>${t('text_kind')}</span>
+                    </div>
+                    <div class="flex-1 p-8 overflow-y-auto whitespace-pre-wrap leading-relaxed text-neutral-800 outline-none select-text">
+${t('contact_content')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function getHiddenContent() {
+            return `
+                <div class="flex-1 bg-white flex flex-col items-center justify-center text-neutral-400 gap-4 select-text">
+                    <i data-lucide="ghost" width="64" class="opacity-20"></i>
+                    <div class="text-center">
+                        <h3 class="font-medium text-neutral-600">Hidden Folder</h3>
+                        <p class="text-sm mt-1">This folder is only visible via Ctrl+Shift+.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- ACTIONS ---
+
+        window.toggleLangDropdown = function() {
+            state.langDropdownOpen = !state.langDropdownOpen;
+            renderTopBar();
+        };
+
+        window.changeLang = function(lang) {
+            state.lang = lang;
+            state.langDropdownOpen = false;
+            render(); 
+        };
+
+        window.selectDesktop = function(e, id) {
+            e.stopPropagation();
+            state.selectedDesktopId = id;
+            renderDesktop(); 
+        };
+
+        window.deselectDesktop = function() {
+            if (state.selectedDesktopId) {
+                state.selectedDesktopId = null;
+                renderDesktop();
+            }
+            if (state.langDropdownOpen) {
+                state.langDropdownOpen = false;
+                renderTopBar();
+            }
+        };
+
+        window.openFolder = function(id) {
+            // If already open, do nothing (or we could focus it)
+            if (state.openFolderId === id && !state.isClosing) return;
+            
+            state.openFolderId = id;
+            state.isClosing = false; // Reset close state
+
+            if (id === 'websites') state.selectedFileId = WEBSITE_FILES[0].id;
+            if (id === 'photos') {
+                state.selectedPhotoId = PHOTO_FILES[0].id;
+                state.galleryViewMode = 'single';
+            }
+            renderWindow(); 
+        };
+
+        window.closeWindow = function() {
+            const win = document.getElementById('active-window');
+            if (win && !state.isClosing) {
+                state.isClosing = true;
+                // Add exit animation class
+                win.classList.remove('window-enter');
+                win.classList.add('window-exit');
+                
+                // Wait for animation to finish before removing from DOM
+                setTimeout(() => {
+                    state.openFolderId = null;
+                    state.isClosing = false;
+                    renderWindow();
+                }, 100); // 100ms matches css animation duration (faster)
+            } else if (!win) {
+                state.openFolderId = null;
+                renderWindow();
+            }
+        };
+
+        window.selectFile = function(id) {
+            state.selectedFileId = id;
+            renderWindow(); 
+        };
+
+        window.toggleDetails = function() {
+            state.isDetailsExpanded = !state.isDetailsExpanded;
+            
+            // Direct DOM manipulation for smoother animation without full re-render
+            const panel = document.getElementById('detail-panel');
+            const arrow = document.getElementById('detail-arrow');
+            const text = document.getElementById('detail-text');
+            const imgWrapper = document.getElementById('website-image-wrapper');
+            
+            if (panel) {
+                if (state.isDetailsExpanded) {
+                    panel.classList.remove('translate-y-[calc(100%-60px)]');
+                    panel.classList.add('translate-y-0');
+                    
+                    // Animate image wrapper shrinking
+                    if (imgWrapper) {
+                        imgWrapper.classList.remove('bottom-0', 'pb-24');
+                        imgWrapper.classList.add('bottom-[45%]', 'pb-8');
+                    }
+                } else {
+                    panel.classList.add('translate-y-[calc(100%-60px)]');
+                    panel.classList.remove('translate-y-0');
+                    
+                    // Animate image wrapper expanding
+                    if (imgWrapper) {
+                        imgWrapper.classList.add('bottom-0', 'pb-24');
+                        imgWrapper.classList.remove('bottom-[45%]', 'pb-8');
+                    }
+                }
+                
+                if (text) text.innerText = state.isDetailsExpanded ? t('showLess') : t('showMore');
+                
+                if (arrow) {
+                    const newIcon = document.createElement('i');
+                    newIcon.id = 'detail-arrow';
+                    newIcon.setAttribute('width', '14');
+                    newIcon.setAttribute('data-lucide', state.isDetailsExpanded ? 'chevron-down' : 'chevron-up');
+                    arrow.replaceWith(newIcon);
+                    // Only re-initialize icons in the panel header if needed, but safeRenderIcons works on root too
+                    // A simple hack to get just this icon rendered:
+                    if (window.lucide) lucide.createIcons({ root: newIcon.parentElement });
+                }
+            } else {
+                // Fallback
+                renderWindow();
+            }
+        };
+
+        window.setGalleryMode = function(mode) {
+            state.galleryViewMode = mode;
+            renderWindow();
+        };
+
+        window.selectPhoto = function(id) {
+            const oldIndex = PHOTO_FILES.findIndex(p => p.id === state.selectedPhotoId);
+            const newIndex = PHOTO_FILES.findIndex(p => p.id === id);
+            state.slideDirection = newIndex > oldIndex ? 'right' : 'left';
+            state.selectedPhotoId = id;
+            renderWindow();
+        };
+
+        window.selectPhotoAndSwitch = function(id) {
+            state.selectedPhotoId = id;
+            state.galleryViewMode = 'single';
+            renderWindow();
+        };
+
+        window.handlePhotoWheel = function(e) {
+            if (window.wheelThrottle) return;
+            window.wheelThrottle = true;
+            setTimeout(() => window.wheelThrottle = false, 150);
+
+            const currentIndex = PHOTO_FILES.findIndex(p => p.id === state.selectedPhotoId);
+            let nextIndex = currentIndex;
+
+            if (e.deltaY > 0) {
+                nextIndex = (currentIndex + 1) % PHOTO_FILES.length;
+                state.slideDirection = 'right';
+            } else {
+                nextIndex = (currentIndex - 1 + PHOTO_FILES.length) % PHOTO_FILES.length;
+                state.slideDirection = 'left';
+            }
+            state.selectedPhotoId = PHOTO_FILES[nextIndex].id;
+            renderWindow();
+        };
+
+        // --- GLOBAL EVENT LISTENERS ---
+        document.addEventListener('keydown', (e) => {
+            // Control + Shift + . (Also support Meta/Command for Mac)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === '.') {
+                e.preventDefault();
+                state.showHidden = !state.showHidden;
+                renderDesktop();
+            }
+        });
+
+        // --- INIT ---
+        render();
+
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
