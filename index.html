@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -91,10 +91,11 @@
                 showMore: "Show More",
                 showLess: "Show Less",
                 info: "Information",
+                tech_japanese: "Japanese",
                 
-                project1_name: "Personal Portfolio",
-                project1_desc: "A clean, responsive portfolio website showcasing my design works.",
-                type_personal: "Personal Project",
+                project1_name: "mm's新宿ザイリュウログ",
+                project1_desc: "This is an information gathering website introducing Shinjuku from an alien's perspective.",
+                type_personal: "School Assignment",
                 project2_name: "E-Commerce Concept",
                 project2_desc: "Modern shopping experience design with seamless checkout flow.",
                 type_concept: "Concept / Design",
@@ -113,17 +114,18 @@
                 icons: "图标库",
                 contact: "联系方式.txt",
                 label_type: "类型",
-                label_tech: "语言/技术",
+                label_tech: "语言",
                 created: "创建日期",
                 openSite: "访问网站",
                 preview: "预览",
                 showMore: "展开信息",
                 showLess: "收起信息",
                 info: "信息",
+                tech_japanese: "日语",
                 
-                project1_name: "个人作品集",
-                project1_desc: "展示我设计作品的简洁响应式网站。",
-                type_personal: "个人项目",
+                project1_name: "mm's新宿ザイリュウログ",
+                project1_desc: "这是一个通过外星人的视角来介绍新宿的情报收集网站。",
+                type_personal: "学校作业",
                 project2_name: "电商概念站",
                 project2_desc: "具有流畅结账流程的现代购物体验设计。",
                 type_concept: "概念设计",
@@ -142,17 +144,18 @@
                 icons: "アイコン素材",
                 contact: "連絡先.txt",
                 label_type: "タイプ",
-                label_tech: "言語/技術",
+                label_tech: "言語",
                 created: "作成日",
                 openSite: "サイトを開く",
                 preview: "プレビュー",
                 showMore: "詳細を表示",
                 showLess: "詳細を隠す",
                 info: "情報",
+                tech_japanese: "日本語",
                 
-                project1_name: "ポートフォリオ",
-                project1_desc: "デザイン作品を紹介するシンプルでレスポンシブなサイト。",
-                type_personal: "個人プロジェクト",
+                project1_name: "mm's新宿ザイリュウログ",
+                project1_desc: "宇宙人の視点から新宿の情報を紹介する情報収集サイトです。",
+                type_personal: "学校課題",
                 project2_name: "ECサイトコンセプト",
                 project2_desc: "スムーズな決済フローを備えたモダンなショッピング体験。",
                 type_concept: "コンセプト",
@@ -168,7 +171,7 @@
         };
 
         const WEBSITE_FILES = [
-            { id: 'p1', nameKey: 'project1_name', descKey: 'project1_desc', typeKey: 'type_personal', tech: 'React / Tailwind', imageColor: 'bg-indigo-400', url: '#', date: '2023-10-15' },
+            { id: 'p1', nameKey: 'project1_name', descKey: 'project1_desc', typeKey: 'type_personal', tech: 'tech_japanese', image: 'img/mms.jpg', url: 'https://fumoto0226.github.io/mms/', date: '2025.12' },
             { id: 'p2', nameKey: 'project2_name', descKey: 'project2_desc', typeKey: 'type_concept', tech: 'Next.js / Stripe', imageColor: 'bg-emerald-400', url: '#', date: '2023-11-02' },
             { id: 'p3', nameKey: 'project3_name', descKey: 'project3_desc', typeKey: 'type_personal', tech: 'Hugo / Markdown', imageColor: 'bg-orange-400', url: '#', date: '2024-01-20' },
             { id: 'p4', nameKey: 'project4_name', descKey: 'project4_desc', typeKey: 'type_commercial', tech: 'Vue / D3.js', imageColor: 'bg-blue-400', url: '#', date: '2024-02-14' }
@@ -255,7 +258,7 @@
                     <div class="mb-1 relative">
                         <i data-lucide="${icon.icon}" width="${icon.icon === 'folder' || icon.icon === 'folder-lock' ? 56 : 48}" height="${icon.icon === 'folder' || icon.icon === 'folder-lock' ? 56 : 56}" stroke-width="1" class="${icon.id === 'contact' ? 'text-neutral-600' : icon.isHidden ? 'text-neutral-500' : 'text-[#5ea0d6]'}" ${icon.id === 'contact' ? 'fill="white"' : icon.isHidden ? 'fill="#e5e7eb"' : 'fill="#7dc0f5"'}></i>
                     </div>
-                    <span class="text-xs text-center font-medium px-2 py-0.5 rounded leading-tight select-none ${state.selectedDesktopId === icon.id ? 'text-neutral-900' : 'text-neutral-700'}" style="text-shadow: ${state.selectedDesktopId === icon.id ? 'none' : '0 1px 2px rgba(255,255,255,0.8)'}">
+                    <span class="text-xs text-center font-medium px-2 py-0.5 rounded leading-tight select-none ${state.selectedDesktopId === icon.id ? 'text-neutral-900' : 'text-neutral-700'}">
                         ${icon.label}
                     </span>
                 </div>
@@ -421,8 +424,10 @@
             const selectedFile = WEBSITE_FILES.find(f => f.id === state.selectedFileId) || WEBSITE_FILES[0];
             
             // Calculate classes for the sliding animation
-            // Image wrapper classes for animation (bottom constraint and padding)
-            const imageWrapperClass = state.isDetailsExpanded ? 'bottom-[45%] pb-8' : 'bottom-0 pb-24';
+            // Image wrapper classes for animation
+            // Expanded: bottom-45% (gives 45% screen to details, 55% to image)
+            // Collapsed: top-0 bottom-60px (full height minus bottom header)
+            const imageWrapperClass = state.isDetailsExpanded ? 'bottom-[45%]' : 'bottom-[60px]';
             
             const translateClass = state.isDetailsExpanded ? 'translate-y-0' : 'translate-y-[calc(100%-60px)]';
             const arrowIcon = state.isDetailsExpanded ? 'chevron-down' : 'chevron-up';
@@ -441,12 +446,15 @@
 
                 <div class="flex-1 bg-white relative h-full overflow-hidden min-w-0 group/container">
                     <!-- Image Area with Animation -->
+                    <!-- Reverted p-10 to p-8 to maintain consistent visual scaling -->
                     <div id="website-image-wrapper" class="absolute top-0 left-0 right-0 ${imageWrapperClass} p-8 flex items-center justify-center bg-neutral-50/30 transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]">
-                        <div key="${selectedFile.id}" class="h-full w-auto aspect-video max-w-full rounded-lg border border-neutral-200 flex flex-col items-center justify-center text-white relative group overflow-hidden ${selectedFile.imageColor} shadow-sm">
-                            <i data-lucide="image" width="48" class="opacity-50 mb-2"></i>
-                            <span class="font-semibold opacity-75">${t('preview')}</span>
-                            <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <a href="${selectedFile.url}" target="_blank" class="bg-white/20 backdrop-blur-md border border-white/50 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors flex items-center gap-2">
+                        <!-- Removed shadow-2xl, kept h-full and aspect-video -->
+                        <div key="${selectedFile.id}" class="h-full w-auto aspect-video max-w-full rounded-lg border border-neutral-200 flex flex-col items-center justify-center text-white relative group overflow-hidden"
+                            style="${selectedFile.image ? `background-image: url('${selectedFile.image}'); background-size: cover; background-position: center;` : `background-color: ${selectedFile.imageColor}`}">
+                                <!-- <i data-lucide="image" width="48" class="opacity-50 mb-2"></i>
+                                <span class="font-semibold opacity-75">${t('preview')}</span> -->
+                                <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <a href="${selectedFile.url}" target="_blank" class="bg-white/20 backdrop-blur-md border border-white/50 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors flex items-center gap-2">
                                     ${t('openSite')} <i data-lucide="external-link" width="14"></i>
                                 </a>
                             </div>
@@ -454,7 +462,8 @@
                     </div>
                     
                     <!-- Detail Panel Overlay -->
-                    <div id="detail-panel" class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-neutral-200 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] shadow-[0_-10px_40px_rgba(0,0,0,0.05)] ${translateClass} z-10 flex flex-col" style="max-height: 75%;">
+                    <!-- Removed style max-height, added h-[45%] class to ensure no bottom gap -->
+                    <div id="detail-panel" class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-neutral-200 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] shadow-[0_-10px_40px_rgba(0,0,0,0.05)] ${translateClass} z-10 flex flex-col h-[45%]">
                         
                         <!-- Header -->
                         <div onclick="toggleDetails()" class="h-[60px] px-6 flex items-center justify-between cursor-pointer hover:bg-white/50 transition-colors shrink-0">
@@ -475,7 +484,7 @@
                                     <div class="text-neutral-400 font-medium text-right pr-4">${t('label_type')}</div>
                                     <div class="text-neutral-700">${t(selectedFile.typeKey)}</div>
                                     <div class="text-neutral-400 font-medium text-right pr-4">${t('label_tech')}</div>
-                                    <div class="text-neutral-700">${selectedFile.tech}</div>
+                                    <div class="text-neutral-700">${t(selectedFile.tech)}</div>
                                     <div class="text-neutral-400 font-medium text-right pr-4">${t('created')}</div>
                                     <div class="text-neutral-700">${selectedFile.date}</div>
                                     <div class="text-neutral-400 font-medium text-right pr-4">${t('info')}</div>
@@ -643,8 +652,8 @@ ${t('contact_content')}
                     
                     // Animate image wrapper shrinking
                     if (imgWrapper) {
-                        imgWrapper.classList.remove('bottom-0', 'pb-24');
-                        imgWrapper.classList.add('bottom-[45%]', 'pb-8');
+                        imgWrapper.classList.remove('bottom-[60px]');
+                        imgWrapper.classList.add('bottom-[45%]');
                     }
                 } else {
                     panel.classList.add('translate-y-[calc(100%-60px)]');
@@ -652,8 +661,8 @@ ${t('contact_content')}
                     
                     // Animate image wrapper expanding
                     if (imgWrapper) {
-                        imgWrapper.classList.add('bottom-0', 'pb-24');
-                        imgWrapper.classList.remove('bottom-[45%]', 'pb-8');
+                        imgWrapper.classList.add('bottom-[60px]');
+                        imgWrapper.classList.remove('bottom-[45%]');
                     }
                 }
                 
