@@ -57,8 +57,20 @@
 
     <!-- Mobile Warning Overlay -->
     <div id="mobile-warning" class="absolute inset-0 z-[100] bg-[#e3e3e3] flex flex-col items-center justify-center p-8 text-center hidden">
-        <h1 class="text-2xl font-bold text-neutral-800 mb-4" id="mobile-warning-title"></h1>
-        <p class="text-neutral-600 text-lg" id="mobile-warning-message"></p>
+        <div class="mb-4 max-w-xl space-y-4">
+            <div>
+                <h1 class="text-2xl font-bold text-neutral-800 mb-1">Mobile Not Supported</h1>
+                <p class="text-neutral-600 text-lg">This website is not currently supported on mobile devices. Please access it from a desktop computer for the best experience.</p>
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold text-neutral-800 mb-1">暂不支持手机访问</h1>
+                <p class="text-neutral-600 text-lg">本网站暂不支持手机设备查看，请用电脑访问以获得最佳体验。</p>
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold text-neutral-800 mb-1">モバイル非対応</h1>
+                <p class="text-neutral-600 text-lg">このウェブサイトは現在モバイルデバイスに対応していません。最高の体験を得るには、デスクトップコンピューターからアクセスしてください。</p>
+            </div>
+        </div>
         <p class="text-sm text-neutral-500 mt-8">© 2025 zenglujin. All Rights Reserved.</p>
     </div>
 
@@ -753,10 +765,6 @@ ${t('contact_content')}
             document.getElementById('footer-layer').classList.add('hidden');
             document.getElementById('ui-layer').classList.add('hidden');
             document.getElementById('window-layer').classList.add('hidden');
-
-            const lang = state.lang;
-            document.getElementById('mobile-warning-title').innerText = TRANSLATIONS[lang]['mobile_warning_title'];
-            document.getElementById('mobile-warning-message').innerText = TRANSLATIONS[lang]['mobile_warning_message'];
         } else {
             render();
         }
