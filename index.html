@@ -13,7 +13,7 @@
             user-select: none;
             -webkit-user-select: none;
             overflow: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         /* Animations */
@@ -50,6 +50,12 @@
         /* Hide scrollbar for clean UI but allow scroll */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Hide video options (three-dots menu), download & PiP buttons (WebKit-based browsers) */
+        video::-webkit-media-controls-overflow-button { display: none !important; }
+        video::-webkit-media-controls-download-button { display: none !important; }
+        video::-internal-media-controls-download-button { display: none !important; }
+        video::-webkit-media-controls-picture-in-picture-button { display: none !important; }
     </style>
 <link rel="stylesheet" href="/index.css">
 </head>
@@ -71,7 +77,7 @@
                 <p class="text-neutral-600 text-lg">このウェブサイトは現在モバイルデバイスに対応していません。最高の体験を得るには、デスクトップコンピューターからアクセスしてください。</p>
             </div>
         </div>
-        <p class="text-sm text-neutral-500 mt-8">© 2025 zenglujin. All Rights Reserved.</p>
+        <p class="text-sm text-neutral-500 mt-8">© 2026 zenglujin. All Rights Reserved.</p>
     </div>
 
     <!-- Layer 1: Desktop Icons -->
@@ -99,10 +105,12 @@
         const TRANSLATIONS = {
             en: {
                 websites: "Websites",
+                videos: "Videos",
                 photos: "Gallery",
                 icons: "Icon Library",
                 contact: "Contact.txt",
                 label_type: "Type",
+                label_platform: "Platform",
                 label_tech: "Language",
                 created: "Created",
                 openSite: "Open Website",
@@ -112,33 +120,59 @@
                 info: "Details",
                 tech_japanese: "Japanese",
                 tech_en_zh: "English, Chinese",
+                tech_en_ja_zh: "English, Japanese, Chinese",
                 
-                project0_name: "QingYan Studio",
-                project0_desc: "This is a portfolio website created for QingYan Studio.",
+                project0_name: "FontCraft",
+                project0_desc: "A website that allows anyone to create an English font in 5 minutes without any barriers.",
+                type_tool: "Web Tool",
+                project1_name: "QingYan Studio",
+                project1_desc: "This is a portfolio website created for QingYan Studio.",
                 type_studio: "Studio Portfolio",
-                project1_name: "mm's新宿ザイリュウログ",
-                project1_desc: "This is an information gathering website introducing Shinjuku from an alien's perspective.",
+                project2_name: "mm's SHINJUKU",
+                project2_desc: "This is an information gathering website introducing Shinjuku from an alien's perspective.",
                 type_personal: "School Assignment",
-                project2_name: "Cocoon Tower",
-                project2_desc: "Website introducing Cocoon Tower in Shinjuku.",
+                project3_name: "Cocoon Tower",
+                project3_desc: "Website introducing Cocoon Tower in Shinjuku.",
                 type_concept: "Concept / Design",
-                project3_name: "Travel Blog",
-                project3_desc: "A minimal blog capturing adventures around the world.",
-                project4_name: "Dashboard UI",
-                project4_desc: "Analytics dashboard with real-time data visualization.",
                 type_commercial: "Commercial",
+                
+                category_other: "Other",
+                project5_name: "WowoPopo",
+                project5_desc: "A song-guessing search tool using iTurns audio samples, available only as a WeChat Mini Program.",
+                type_tool_game: "Tool / Game",
+                platform_pc: "PC",
+                platform_pc_mobile: "PC, Mobile",
+                platform_wechat: "WeChat Mini Program",
+                tech_zh: "Chinese",
                 
                 text_kind: "Plain Text Document",
                 contact_content: "Name: Zeng Lujin\nEmail: cenglujin@gmail.com\nPhone: (+86) 18081345866 / (+81) 07076592037\nWechat: kururugi111\n\nFeel free to reach out for collaborations!",
                 mobile_warning_title: "Mobile Not Supported",
-                mobile_warning_message: "This website is not currently supported on mobile devices. Please access it from a desktop computer for the best experience."
+                mobile_warning_message: "This website is not currently supported on mobile devices. Please access it from a desktop computer for the best experience.",
+                
+                video_type_commercial: "Commercial",
+                video_type_personal: "Personal",
+                
+                secret_empty: "Nothing here",
+                secret_pasword_prompt: "Enter Pasword",
+                secret_pasword_placeholder: "Pasword",
+                secret_pasword_cancel: "Cancel",
+                secret_pasword_confirm: "Confirm",
+                secret_pasword_wrong: "Incorrect pasword",
+                secret_pasword_correct: "Pasword Correct",
+                secret_pasword_unlock: "Unlock",
+                
+                hidden_reward: "💰 1 USD",
+                hidden_claim: "Show this screenshot to claim"
             },
             zh: {
-                websites: "我的网站",
-                photos: "摄影集",
+                websites: "网站",
+                videos: "视频",
+                photos: "图像",
                 icons: "图标库",
                 contact: "联系方式.txt",
                 label_type: "类型",
+                label_platform: "平台",
                 label_tech: "语言",
                 created: "创建日期",
                 openSite: "访问网站",
@@ -148,34 +182,60 @@
                 info: "信息",
                 tech_japanese: "日语",
                 tech_en_zh: "英语，中文",
+                tech_en_ja_zh: "英语，日语，中文",
                 
-                project0_name: "QingYan Studio",
-                project0_desc: "这是为QingYan Studio制作的用于作品展示的网站。",
+                project0_name: "FontCraft",
+                project0_desc: "无门槛5分钟做成一个英文字体的网站。",
+                type_tool: "工具网站",
+                project1_name: "QingYan Studio",
+                project1_desc: "这是为QingYan Studio制作的用于作品展示的网站。",
                 type_studio: "工作室作品网站",
-                project1_name: "mm's新宿ザイリュウログ",
-                project1_desc: "这是一个通过外星人的视角来介绍新宿的情报收集网站。",
+                project2_name: "mm's SHINJUKU",
+                project2_desc: "这是一个通过外星人的视角来介绍新宿的情报收集网站。",
                 type_personal: "学校作业",
-                project2_name: "Cocoon Tower",
-                project2_desc: "介绍位于新宿的cocoon tower大楼的网站。",
+                project3_name: "Cocoon Tower",
+                project3_desc: "介绍位于新宿的cocoon tower大楼的网站。",
                 type_concept: "概念设计",
-                project3_name: "旅行博客",
-                project3_desc: "记录世界各地冒险经历的极简博客。",
-                project4_name: "仪表盘 UI",
-                project4_desc: "具有实时数据可视化的分析仪表板。",
                 type_commercial: "商业项目",
                 
+                category_other: "其他",
+                project5_name: "窝窝坡坡",
+                project5_desc: "使用了iTurns试听音源的搜索猜歌工具，只能在微信小程序使用。",
+                type_tool_game: "工具/游戏",
+                platform_pc: "电脑",
+                platform_pc_mobile: "电脑，手机",
+                platform_wechat: "微信小程序",
+                tech_zh: "中文",
+                
                 text_kind: "纯文本文件",
-                contact_content: "姓名: 曾麓瑾\n邮箱: cenglujin@gmail.com\n电话: (+86) 18081345866 / (+81) 07076592037\n微信: kururugi111\n\n欢迎随时联系合作！",
+                contact_content: "姓名: 曾麓瑾\n邮箱: cenglujin@gmail.com\n电话: (+86) 18081345866 / (+81) 07076592037\n微信: kururugi111 （优先微信联系，其他方式可能联系不到。）\n\n欢迎随时联系合作！",
                 mobile_warning_title: "暂不支持手机访问",
-                mobile_warning_message: "本网站暂不支持手机设备查看，请用电脑访问以获得最佳体验。"
+                mobile_warning_message: "本网站暂不支持手机设备查看，请用电脑访问以获得最佳体验。",
+                
+                video_type_commercial: "商业",
+                video_type_personal: "个人",
+                
+                secret_empty: "这里什么都没有",
+                secret_pasword_prompt: "输入密码",
+                secret_pasword_placeholder: "密码",
+                secret_pasword_cancel: "取消",
+                secret_pasword_confirm: "确认",
+                secret_pasword_wrong: "密码错误",
+                secret_pasword_correct: "密码正确",
+                secret_pasword_unlock: "解锁",
+                
+                hidden_reward: "💰 10 CNY",
+                hidden_claim: "可凭截图找我领取"
             },
             ja: {
                 websites: "Webサイト",
+                videos: "ビデオ",
                 photos: "ギャラリー",
                 icons: "アイコン素材",
                 contact: "連絡先.txt",
                 label_type: "タイプ",
-                label_tech: "日本語",
+                label_platform: "対応環境",
+                label_tech: "言語",
                 created: "作成日",
                 openSite: "サイトを開く",
                 preview: "プレビュー",
@@ -184,33 +244,70 @@
                 info: "情報",
                 tech_japanese: "日本語",
                 tech_en_zh: "英語、中国語",
+                tech_en_ja_zh: "英語、日本語、中国語",
                 
-                project0_name: "QingYan Studio",
-                project0_desc: "QingYan Studioのために制作されたポートフォリオウェブサイトです。",
+                project0_name: "FontCraft",
+                project0_desc: "誰でも5分で英語フォントを作成できるウェブサイトです。",
+                type_tool: "ウェブツール",
+                project1_name: "QingYan Studio",
+                project1_desc: "QingYan Studioのために制作されたポートフォリオウェブサイトです。",
                 type_studio: "スタジオポートフォリオ",
-                project1_name: "mm's新宿ザイリュウログ",
-                project1_desc: "宇宙人の視点から新宿の情報を紹介する情報収集サイトです。",
+                project2_name: "mm's SHINJUKU",
+                project2_desc: "宇宙人の視点から新宿の情報を紹介する情報収集サイトです。",
                 type_personal: "学校課題",
-                project2_name: "Cocoon Tower",
-                project2_desc: "新宿にあるコクーンタワービルを紹介するウェブサイト。",
+                project3_name: "Cocoon Tower",
+                project3_desc: "新宿にあるコクーンタワービルを紹介するウェブサイト。",
                 type_concept: "コンセプト",
-                project3_name: "旅行ブログ",
-                project3_desc: "世界中の冒険を記録するミニマルなブログ。",
-                project4_name: "ダッシュボードUI",
-                project4_desc: "リアルタイムデータ視覚化を備えた分析ダッシュボード。",
                 type_commercial: "商用プロジェクト",
+                
+                category_other: "その他",
+                project5_name: "WowoPopo",
+                project5_desc: "iTurnsの試聴音源を使用した曲当て検索ツール。WeChatミニプログラムでのみ利用可能。",
+                type_tool_game: "ツール/ゲーム",
+                platform_pc: "PC",
+                platform_pc_mobile: "PC、モバイル",
+                platform_wechat: "WeChatミニプログラム",
+                tech_zh: "中国語",
                 
                 text_kind: "プレーンテキスト",
                 contact_content: "名前: 曾麓瑾\nメール: cenglujin@gmail.com\n電話: (+86) 18081345866 / (+81) 07076592037\nWechat: kururugi111\n\nお仕事のご依頼お待ちしております！",
                 mobile_warning_title: "モバイル非対応",
-                mobile_warning_message: "このウェブサイトは現在モバイルデバイスに対応していません。最高の体験を得るには、デスクトップコンピューターからアクセスしてください。"
+                mobile_warning_message: "このウェブサイトは現在モバイルデバイスに対応していません。最高の体験を得るには、デスクトップコンピューターからアクセスしてください。",
+                
+                video_type_commercial: "商業",
+                video_type_personal: "個人",
+                
+                secret_empty: "ここには何もない",
+                secret_pasword_prompt: "パスワードを入力",
+                secret_pasword_placeholder: "パスワード",
+                secret_pasword_cancel: "キャンセル",
+                secret_pasword_confirm: "確認",
+                secret_pasword_wrong: "パスワードが間違っています",
+                secret_pasword_correct: "パスワード正しい",
+                secret_pasword_unlock: "解除",
+                
+                hidden_reward: "💰 100 JPY",
+                hidden_claim: "このスクリーンショットで受け取れます"
             }
         };
 
         const WEBSITE_FILES = [
-            { id: 'p0', nameKey: 'project0_name', descKey: 'project0_desc', typeKey: 'type_studio', tech: 'tech_en_zh', image: 'img/QingYan-Studio.jpg', url: 'https://fumoto0226.github.io/qzhuphoto/', date: '2026.02' },
-            { id: 'p1', nameKey: 'project1_name', descKey: 'project1_desc', typeKey: 'type_personal', tech: 'tech_japanese', image: 'img/mms.jpg', url: 'https://fumoto0226.github.io/mms/', date: '2025.12' },
-            { id: 'p2', nameKey: 'project2_name', descKey: 'project2_desc', typeKey: 'type_personal', tech: 'tech_japanese', image: 'img/cocoon.jpg', url: 'https://fumoto0226.github.io/cocoon-web2/', date: '2025.07' }
+            { id: 'p0', nameKey: 'project0_name', descKey: 'project0_desc', typeKey: 'type_tool', platform: 'platform_pc_mobile', tech: 'tech_en_ja_zh', category: 'websites', images: ['img/website/FontCraft.jpg', 'img/website/FontCraft-2.jpg', 'img/website/FontCraft-3.jpg', 'img/website/FontCraft-4.jpg'], url: '#', date: '2026.02' },
+            { id: 'p1', nameKey: 'project1_name', descKey: 'project1_desc', typeKey: 'type_studio', platform: 'platform_pc_mobile', tech: 'tech_en_zh', category: 'websites', images: ['img/website/QingYan-Studio.jpg', 'img/website/QingYan-Studio-2.jpg', 'img/website/QingYan-Studio-3.jpg', 'img/website/QingYan-Studio-4.jpg', 'img/website/QingYan-Studio-5.jpg', 'img/website/QingYan-Studio-6.jpg'], url: 'https://fumoto0226.github.io/qzhuphoto/', date: '2026.02' },
+            { id: 'p2', nameKey: 'project2_name', descKey: 'project2_desc', typeKey: 'type_personal', platform: 'platform_pc', tech: 'tech_japanese', category: 'websites', images: ['img/website/mms.jpg', 'img/website/mms-2.jpg', 'img/website/mms-3.jpg', 'img/website/mms-4.jpg', 'img/website/mms-5.jpg', 'img/website/mms-6.jpg'], url: 'https://fumoto0226.github.io/mms/', date: '2025.12' },
+            { id: 'p3', nameKey: 'project3_name', descKey: 'project3_desc', typeKey: 'type_personal', platform: 'platform_pc', tech: 'tech_japanese', category: 'websites', images: ['img/website/cocoon.jpg', 'img/website/cocoon-2.jpg', 'img/website/cocoon-3.jpg', 'img/website/cocoon-4.jpg'], url: 'https://fumoto0226.github.io/cocoon-web2/', date: '2025.07' },
+            { id: 'p5', nameKey: 'project5_name', descKey: 'project5_desc', typeKey: 'type_tool_game', platform: 'platform_wechat', tech: 'tech_zh', category: 'other', images: ['img/website/Wowopopo.jpg', 'img/website/Wowopopo-2.jpg'], noUrl: true, date: '2026.01' }
+        ];
+
+        const VIDEO_FILES = [
+            { id: 'v1', title_en: 'Puff – Token of Love', title_zh: 'puff-token of love', title_ja: 'Puff – Token of Love', typeKey: 'video_type_commercial', date: '2025.2', thumbnail: '', videoUrl: 'img/movie/puff-token of love.mp4', aspectRatio: '16:9' },
+            { id: 'v2', title_en: 'Jun Xiaobao – Jia Nailiang', title_zh: '菌小宝-贾乃亮', title_ja: 'Jun Xiaobao – Jia Nailiang', typeKey: 'video_type_commercial', date: '2023.1', thumbnail: '', videoUrl: 'img/movie/菌小宝-贾乃亮.mp4', aspectRatio: '16:9' },
+            { id: 'v3', title_en: 'Tmall Captain', title_zh: '天猫舰长', title_ja: 'Tmall Captain', typeKey: 'video_type_commercial', date: '2022.12', thumbnail: '', videoUrl: 'img/movie/天猫舰长.mp4', aspectRatio: '16:9' },
+            { id: 'v4', title_en: 'Hip-hop Girl – QQ Music Interlude', title_zh: '黑怕女孩qq音乐过场', title_ja: 'Hip-hop Girl – QQ Music Interlude', typeKey: 'video_type_commercial', date: '2021.7', thumbnail: '', videoUrl: 'img/movie/黑怕女孩qq音乐过场.mp4', aspectRatio: '16:9' },
+            { id: 'v5', title_en: 'Design Class Quick Cut', title_zh: '设计课快剪', title_ja: 'Design Class Quick Cut', typeKey: 'video_type_commercial', date: '2021.1', thumbnail: '', videoUrl: 'img/movie/设计课快剪.mp4', aspectRatio: '16:9' },
+            { id: 'v6', title_en: 'Werewolf Boxer', title_zh: '困兽', title_ja: 'Werewolf Boxer', typeKey: 'video_type_personal', date: '2020.5', thumbnail: '', videoUrl: 'img/movie/困兽.mp4', aspectRatio: '16:9' },
+            { id: 'v7', title_en: 'School Memories', title_zh: '母校记忆', title_ja: 'School Memories', typeKey: 'video_type_personal', date: '2019.5', thumbnail: '', videoUrl: 'img/movie/母校记忆.mp4', aspectRatio: '16:9' },
+            { id: 'v8', title_en: 'DanShen', title_zh: '蛋生', title_ja: 'DanShen', typeKey: 'video_type_personal', date: '2018.12', thumbnail: '', videoUrl: 'img/movie/蛋生.mp4', aspectRatio: '16:9' },
         ];
 
         const PHOTO_FILES = [
@@ -226,20 +323,55 @@
 
         // --- STATE MANAGEMENT ---
         const state = {
-            lang: 'en',
+            lang: localStorage.getItem('preferredLanguage') || 'en',
             selectedDesktopId: null,
             openFolderId: null,
             selectedFileId: WEBSITE_FILES[0].id,
+            currentImageIndex: 0, // Track current preview image index for websites
+            selectedVideoId: VIDEO_FILES[0].id,
             selectedPhotoId: PHOTO_FILES[0].id,
             galleryViewMode: 'single', // 'single' or 'grid'
             isDetailsExpanded: false,
             langDropdownOpen: false,
             slideDirection: 'right',
             isClosing: false, // Track closing state
-            showHidden: false // Track hidden files visibility
+            showHidden: false, // Track hidden files visibility
+            playingVideoId: null, // Track which video is playing
+            preloadedImages: {}, // Cache for preloaded images
+            hiddenFolderSelected: false // Track hidden folder selection in secret
         };
 
+        // --- IMAGE PRELOADING ---
+        function preloadImages(imageUrls) {
+            imageUrls.forEach(url => {
+                if (!state.preloadedImages[url]) {
+                    const img = new Image();
+                    img.src = url;
+                    state.preloadedImages[url] = img;
+                }
+            });
+        }
+
+        // Preload all website images on page load
+        function preloadAllWebsiteImages() {
+            const allImages = [];
+            WEBSITE_FILES.forEach(file => {
+                if (file.images) {
+                    allImages.push(...file.images);
+                } else if (file.image) {
+                    allImages.push(file.image);
+                }
+            });
+            preloadImages(allImages);
+        }
+
         // --- HELPER ---
+        function getVideoTitle(video) {
+            if (state.lang === 'zh') return video.title_zh;
+            if (state.lang === 'ja') return video.title_ja;
+            return video.title_en;
+        }
+
         function safeRenderIcons(rootElement) {
             if (window.lucide) {
                 if(rootElement) {
@@ -269,30 +401,39 @@
             const container = document.getElementById('desktop-layer');
             const icons = [
                 { id: 'websites', icon: 'folder', label: t('websites'), color: '#5ea0d6', fill: '#7dc0f5' },
-                { id: 'photos', icon: 'folder', label: t('photos'), color: '#5ea0d6', fill: '#7dc0f5' },
+                { id: 'videos', icon: 'folder', label: t('videos'), color: '#5ea0d6', fill: '#7dc0f5' },
                 { id: 'contact', icon: 'file-text', label: t('contact'), color: '#525252', fill: 'white' }
             ];
 
-            // Add hidden folder if state.showHidden is true
+            // Add photos folder if state.showHidden is true
             if (state.showHidden) {
                 icons.push({ 
-                    id: 'hidden', 
+                    id: 'photos', 
+                    icon: 'folder', 
+                    label: t('photos'), 
+                    color: '#5ea0d6', 
+                    fill: '#7dc0f5',
+                    isHidden: true
+                });
+                icons.push({ 
+                    id: 'secret', 
                     icon: 'folder-lock', 
                     label: '.secret', 
                     color: '#9ca3af', 
                     fill: '#d1d5db',
-                    isHidden: true
+                    isHidden: true,
+                    needsPasword: true
                 });
             }
 
             container.innerHTML = icons.map(icon => `
                 <div 
                     onclick="selectDesktop(event, '${icon.id}')"
-                    ondblclick="openFolder('${icon.id}')"
+                    ondblclick="${icon.needsPasword ? 'openSecretFolder()' : `openFolder('${icon.id}')`}"
                     class="flex flex-col items-center justify-start w-28 p-3 rounded-lg cursor-pointer transition-all duration-100 group ${state.selectedDesktopId === icon.id ? 'bg-blue-300/40 border border-blue-400/30 backdrop-blur-sm' : 'hover:bg-black/5 border border-transparent'} ${icon.isHidden ? 'opacity-60 hover:opacity-100' : ''}"
                 >
                     <div class="mb-1 relative">
-                        <i data-lucide="${icon.icon}" width="${icon.icon === 'folder' || icon.icon === 'folder-lock' ? 56 : 48}" height="${icon.icon === 'folder' || icon.icon === 'folder-lock' ? 56 : 56}" stroke-width="1" class="${icon.id === 'contact' ? 'text-neutral-600' : icon.isHidden ? 'text-neutral-500' : 'text-[#5ea0d6]'}" ${icon.id === 'contact' ? 'fill="white"' : icon.isHidden ? 'fill="#e5e7eb"' : 'fill="#7dc0f5"'}></i>
+                        <i data-lucide="${icon.icon}" width="${icon.id === 'secret' ? 48 : icon.icon === 'folder' || icon.icon === 'folder-lock' ? 56 : 48}" height="${icon.id === 'secret' ? 48 : icon.icon === 'folder' || icon.icon === 'folder-lock' ? 56 : 56}" stroke-width="1" class="${icon.id === 'contact' ? 'text-neutral-600' : icon.isHidden ? 'text-neutral-500' : 'text-[#5ea0d6]'}" ${icon.id === 'contact' ? 'fill="white"' : icon.isHidden ? 'fill="#e5e7eb"' : 'fill="#7dc0f5"'}></i>
                     </div>
                     <span class="text-xs text-center font-medium px-2 py-0.5 rounded leading-tight select-none ${state.selectedDesktopId === icon.id ? 'text-neutral-900' : 'text-neutral-700'}">
                         ${icon.label}
@@ -307,9 +448,14 @@
         function renderFooter() {
             const container = document.getElementById('footer-layer');
             container.innerHTML = `
+                <div class="absolute bottom-6 left-8 pointer-events-none select-none">
+                    <p class="text-[10px] text-neutral-400/60 font-medium tracking-wide">
+                        Ctrl + Shift + .
+                    </p>
+                </div>
                 <div class="absolute bottom-6 right-8 pointer-events-none select-none">
                     <p class="text-[10px] text-neutral-400/80 font-medium tracking-widest uppercase">
-                        © 2025 zenglujin. All Rights Reserved.
+                        © 2026 zenglujin. All Rights Reserved.
                     </p>
                 </div>
             `;
@@ -361,12 +507,14 @@
             }
 
             const folderName = state.openFolderId === 'websites' ? t('websites') : 
+                               state.openFolderId === 'videos' ? t('videos') :
                                state.openFolderId === 'photos' ? t('photos') : 
-                               state.openFolderId === 'hidden' ? '.secret' :
+                               state.openFolderId === 'secret' ? '.secret' :
                                t('contact');
             const iconType = state.openFolderId === 'contact' ? 'file-text' : 
+                             state.openFolderId === 'videos' ? 'film' :
                              state.openFolderId === 'photos' ? 'image' : 
-                             state.openFolderId === 'hidden' ? 'lock' : 'folder';
+                             state.openFolderId === 'secret' ? 'lock' : 'folder';
 
             const existingWindow = document.getElementById('active-window');
 
@@ -374,9 +522,10 @@
                 // Initial Render (create frame)
                 // Note: Added z-50 relative to active-window so it sits above the z-40 overlay
                 // CRITICAL FIX: Added pointer-events-auto to the background overlay so it captures clicks
+                const windowSize = state.openFolderId === 'secret' ? 'max-w-4xl max-h-[600px]' : 'max-w-6xl max-h-[800px]';
                 layer.innerHTML = `
                     <div class="absolute inset-0 z-40 pointer-events-auto" onclick="closeWindow()"></div>
-                    <div id="active-window" class="relative z-50 pointer-events-auto bg-white w-full h-full max-w-6xl max-h-[800px] rounded-xl shadow-2xl flex flex-col overflow-hidden border border-neutral-300 window-enter">
+                    <div id="active-window" class="relative z-50 pointer-events-auto bg-white w-full h-full ${windowSize} rounded-xl shadow-2xl flex flex-col overflow-hidden border border-neutral-300 window-enter">
                         <div class="h-12 bg-[#f1f1f1] border-b border-neutral-300 flex items-center justify-between px-4 shrink-0" id="window-header"></div>
                         <div id="window-content" class="flex-1 flex overflow-hidden bg-white relative"></div>
                     </div>
@@ -427,13 +576,18 @@
 
             let newContent = '';
             if (state.openFolderId === 'websites') newContent = getWebsitesContent();
+            else if (state.openFolderId === 'videos') newContent = getVideosContent();
             else if (state.openFolderId === 'photos') newContent = getPhotosContent();
             else if (state.openFolderId === 'contact') newContent = getContactContent();
-            else if (state.openFolderId === 'hidden') newContent = getHiddenContent();
+            else if (state.openFolderId === 'secret') newContent = getSecretContent();
 
             if(contentContainer) {
                 contentContainer.innerHTML = newContent;
-                safeRenderIcons(contentContainer);
+                // Re-render icons in the entire window after content update
+                const activeWindow = document.getElementById('active-window');
+                if (activeWindow) {
+                    safeRenderIcons(activeWindow);
+                }
             }
 
             // Restore scrolls
@@ -452,12 +606,23 @@
                     thumbStrip.scrollLeft += e.deltaY;
                 });
             }
+            
+            // Final icon render to ensure all icons are displayed correctly
+            setTimeout(() => {
+                const activeWindow = document.getElementById('active-window');
+                if (activeWindow) {
+                    safeRenderIcons(activeWindow);
+                }
+            }, 0);
         }
 
         // --- CONTENT GENERATORS ---
 
         function getWebsitesContent() {
             const selectedFile = WEBSITE_FILES.find(f => f.id === state.selectedFileId) || WEBSITE_FILES[0];
+            const images = selectedFile.images || [selectedFile.image];
+            const hasMultipleImages = images.length > 1;
+            const currentImage = images[state.currentImageIndex] || images[0];
             
             // Calculate classes for the sliding animation
             // Image wrapper classes for animation
@@ -472,7 +637,14 @@
             return `
                 <div id="sidebar-scroll" class="w-64 bg-[#f5f5f5]/80 backdrop-blur-xl border-r border-neutral-200 flex flex-col overflow-y-auto pt-2 shrink-0">
                     <div class="px-3 py-2 text-[10px] font-bold text-neutral-400 uppercase tracking-wider">${t('websites')}</div>
-                    ${WEBSITE_FILES.map(file => `
+                    ${WEBSITE_FILES.filter(f => f.category === 'websites').map(file => `
+                        <div onclick="selectFile('${file.id}')" class="mx-2 px-3 py-2 rounded-md flex items-center gap-3 cursor-pointer text-sm transition-colors mb-1 ${state.selectedFileId === file.id ? 'bg-blue-500 text-white shadow-sm' : 'text-neutral-700 hover:bg-neutral-200/60'}">
+                            <i data-lucide="globe" width="16" class="${state.selectedFileId === file.id ? 'text-blue-100' : 'text-neutral-500'}"></i>
+                            <span class="truncate font-medium">${t(file.nameKey)}</span>
+                        </div>
+                    `).join('')}
+                    <div class="px-3 py-2 mt-2 text-[10px] font-bold text-neutral-400 uppercase tracking-wider">${t('category_other')}</div>
+                    ${WEBSITE_FILES.filter(f => f.category === 'other').map(file => `
                         <div onclick="selectFile('${file.id}')" class="mx-2 px-3 py-2 rounded-md flex items-center gap-3 cursor-pointer text-sm transition-colors mb-1 ${state.selectedFileId === file.id ? 'bg-blue-500 text-white shadow-sm' : 'text-neutral-700 hover:bg-neutral-200/60'}">
                             <i data-lucide="globe" width="16" class="${state.selectedFileId === file.id ? 'text-blue-100' : 'text-neutral-500'}"></i>
                             <span class="truncate font-medium">${t(file.nameKey)}</span>
@@ -482,23 +654,63 @@
 
                 <div class="flex-1 bg-white relative h-full overflow-hidden min-w-0 group/container">
                     <!-- Image Area with Animation -->
-                    <!-- Reverted p-10 to p-8 to maintain consistent visual scaling -->
-                    <div id="website-image-wrapper" class="absolute top-0 left-0 right-0 ${imageWrapperClass} p-8 flex items-center justify-center bg-neutral-50/30 transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]">
-                        <!-- Removed shadow-2xl, kept h-full and aspect-video -->
-                        <div key="${selectedFile.id}" class="h-full w-auto aspect-video max-w-full rounded-lg border border-neutral-200 flex flex-col items-center justify-center text-white relative group overflow-hidden"
-                            style="${selectedFile.image ? `background-image: url('${selectedFile.image}'); background-size: cover; background-position: center;` : `background-color: ${selectedFile.imageColor}`}">
-                                <!-- <i data-lucide="image" width="48" class="opacity-50 mb-2"></i>
-                                <span class="font-semibold opacity-75">${t('preview')}</span> -->
-                                <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <a href="${selectedFile.url}" target="_blank" class="bg-white/20 backdrop-blur-md border border-white/50 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors flex items-center gap-2">
+                    <div id="website-image-wrapper" class="absolute top-0 left-0 right-0 ${imageWrapperClass} transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] overflow-hidden">
+                        <!-- Unified Structure for both states -->
+                        <div class="h-full w-full flex items-center justify-center p-8 bg-neutral-50/30 relative">
+                            <!-- Previous Image Thumbnail (absolute positioned, only visible when expanded) -->
+                            ${hasMultipleImages && state.currentImageIndex > 0 && state.isDetailsExpanded ? `
+                                <div onclick="prevWebsiteImage()" class="absolute left-8 top-1/2 -translate-y-1/2 w-[120px] h-[calc(100%-64px)] rounded-lg border border-neutral-200 overflow-hidden cursor-pointer hover:scale-105 transition-all opacity-60 hover:opacity-100 z-0" style="background-image: url('${images[state.currentImageIndex - 1]}'); background-size: cover; background-position: right center;">
+                                </div>
+                            ` : ''}
+                            
+                            <!-- Main Image (always centered) -->
+                            <div class="h-full w-auto aspect-video max-w-full rounded-lg border border-neutral-200 relative group overflow-hidden z-10">
+                                <div class="absolute inset-0 flex transition-transform duration-500 ease-out" style="transform: translateX(-${state.currentImageIndex * 100}%)">
+                                    ${images.map((img, idx) => `
+                                        <div class="w-full h-full shrink-0" style="background-image: url('${img}'); background-size: cover; background-position: center;">
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                
+                                ${hasMultipleImages ? `
+                                    <div class="absolute bottom-4 right-4 bg-black/60 text-white text-xs px-2 py-1 rounded-full">
+                                        ${state.currentImageIndex + 1} / ${images.length}
+                                    </div>
+                                ` : ''}
+                                
+                                <!-- Navigation Arrows (only show when collapsed) -->
+                                ${hasMultipleImages && !state.isDetailsExpanded ? `
+                                    ${state.currentImageIndex > 0 ? `
+                                        <button onclick="prevWebsiteImage()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/50 hover:bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg z-10 group/btn">
+                                            <i data-lucide="chevron-left" width="28" class="text-white group-hover/btn:text-black transition-colors"></i>
+                                        </button>
+                                    ` : ''}
+                                    ${state.currentImageIndex < images.length - 1 ? `
+                                        <button onclick="nextWebsiteImage()" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/50 hover:bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg z-10 group/btn">
+                                            <i data-lucide="chevron-right" width="28" class="text-white group-hover/btn:text-black transition-colors"></i>
+                                        </button>
+                                    ` : ''}
+                                ` : ''}
+                                
+                                <!-- Open Site Button -->
+                                ${!selectedFile.noUrl ? `
+                                <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                                    <a href="${selectedFile.url}" target="_blank" class="bg-white/20 backdrop-blur-md border border-white/50 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors flex items-center gap-2 pointer-events-auto">
                                     ${t('openSite')} <i data-lucide="external-link" width="14"></i>
                                 </a>
                             </div>
+                                ` : ''}
+                            </div>
+                            
+                            <!-- Next Image Thumbnail (absolute positioned, only visible when expanded) -->
+                            ${hasMultipleImages && state.currentImageIndex < images.length - 1 && state.isDetailsExpanded ? `
+                                <div onclick="nextWebsiteImage()" class="absolute right-8 top-1/2 -translate-y-1/2 w-[120px] h-[calc(100%-64px)] rounded-lg border border-neutral-200 overflow-hidden cursor-pointer hover:scale-105 transition-all opacity-60 hover:opacity-100 z-0" style="background-image: url('${images[state.currentImageIndex + 1]}'); background-size: cover; background-position: left center;">
+                                </div>
+                            ` : ''}
                         </div>
                     </div>
                     
                     <!-- Detail Panel Overlay -->
-                    <!-- Removed style max-height, added h-[45%] class to ensure no bottom gap -->
                     <div id="detail-panel" class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-neutral-200 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] shadow-[0_-10px_40px_rgba(0,0,0,0.05)] ${translateClass} z-10 flex flex-col h-[45%]">
                         
                         <!-- Header -->
@@ -519,6 +731,8 @@
                                  <div class="grid grid-cols-[80px_1fr] gap-y-3 text-sm max-w-2xl">
                                     <div class="text-neutral-400 font-medium text-right pr-4">${t('label_type')}</div>
                                     <div class="text-neutral-700">${t(selectedFile.typeKey)}</div>
+                                    <div class="text-neutral-400 font-medium text-right pr-4">${t('label_platform')}</div>
+                                    <div class="text-neutral-700">${t(selectedFile.platform)}</div>
                                     <div class="text-neutral-400 font-medium text-right pr-4">${t('label_tech')}</div>
                                     <div class="text-neutral-700">${t(selectedFile.tech)}</div>
                                     <div class="text-neutral-400 font-medium text-right pr-4">${t('created')}</div>
@@ -533,13 +747,47 @@
             `;
         }
 
+        function getVideosContent() {
+            const selectedVideo = VIDEO_FILES.find(v => v.id === state.selectedVideoId) || VIDEO_FILES[0];
+            
+            return `
+                <div class="flex-1 bg-white p-8 overflow-y-auto custom-scrollbar">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        ${VIDEO_FILES.map(video => `
+                            <div data-video-id="${video.id}" onclick="selectVideo('${video.id}')" ondblclick="playVideo('${video.id}')" class="group cursor-pointer flex flex-col gap-2 ${state.selectedVideoId === video.id ? 'ring-2 ring-blue-500 rounded-lg' : ''}">
+                                <div class="aspect-video w-full rounded-md overflow-hidden bg-neutral-100 shadow-sm border border-neutral-200 group-hover:shadow-md transition-all relative">
+                                    <video preload="metadata" class="w-full h-full object-cover pointer-events-none">
+                                        <source src="${video.videoUrl}#t=0.1" type="video/mp4">
+                                    </video>
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center pointer-events-none">
+                                        <div class="w-14 h-14 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="text-neutral-800 ml-1">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="px-1">
+                                    <div class="text-sm font-medium text-neutral-900 truncate">${getVideoTitle(video)}</div>
+                                    <div class="text-xs text-neutral-500 flex justify-between">
+                                        <span>${t(video.typeKey)}</span>
+                                        <span>${video.date}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
         function getPhotosContent() {
             if (state.galleryViewMode === 'grid') {
                 return `
                     <div id="grid-scroll" class="flex-1 bg-white p-6 overflow-y-auto">
                         <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6">
                             ${PHOTO_FILES.map(photo => `
-                                <div onclick="selectPhotoAndSwitch('${photo.id}')" class="group cursor-pointer flex flex-col gap-2">
+                                <div onclick="selectPhoto('${photo.id}')" ondblclick="selectPhotoAndSwitch('${photo.id}')" class="group cursor-pointer flex flex-col gap-2 ${state.selectedPhotoId === photo.id ? 'ring-2 ring-blue-500 rounded-lg' : ''}">
                                     <div class="aspect-[4/3] w-full rounded-md overflow-hidden bg-neutral-100 shadow-sm border border-neutral-200 group-hover:shadow-md transition-all">
                                         <img src="${photo.url}" alt="${photo.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
                                     </div>
@@ -558,7 +806,7 @@
                         <img 
                             key="${selectedPhoto.id}"
                             src="${selectedPhoto.url}" 
-                            class="max-w-full max-h-full object-contain rounded-sm ${state.slideDirection === 'right' ? 'animate-slide-right' : 'animate-slide-left'}"
+                            class="max-w-full max-h-full object-contain rounded-sm"
                         />
                     </div>
                     <div id="thumbnail-strip" class="h-20 bg-neutral-50 border-t border-neutral-200 p-4 flex gap-3 overflow-x-auto shrink-0 items-center custom-scrollbar">
@@ -576,27 +824,39 @@
         }
 
         function getContactContent() {
+            // Process contact content to add gray color for the note
+            let content = t('contact_content');
+            // Replace the note with styled span
+            content = content.replace(
+                /（优先微信联系，其他方式可能联系不到。）/g,
+                '<span style="margin-left: 10px; color: #9ca3af;">（优先微信联系，其他方式可能联系不到。）</span>'
+            );
+            
             return `
-                <div class="flex-1 bg-white flex flex-col font-mono text-sm outline-none">
-                    <div class="p-2 border-b border-neutral-100 text-xs text-neutral-400 flex items-center gap-2">
+                <div class="flex-1 bg-white flex flex-col text-sm outline-none" style="font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', -apple-system, BlinkMacSystemFont, sans-serif;">
+                    <div class="p-2 border-b border-neutral-100 text-xs text-neutral-400 flex items-center gap-2 font-mono">
                         <span>UTF-8</span>
                         <span class="w-px h-3 bg-neutral-200"></span>
                         <span>${t('text_kind')}</span>
                     </div>
                     <div class="flex-1 p-8 overflow-y-auto whitespace-pre-wrap leading-relaxed text-neutral-800 outline-none select-text">
-${t('contact_content')}
+${content}
                     </div>
                 </div>
             `;
         }
 
-        function getHiddenContent() {
+        function getSecretContent() {
             return `
-                <div class="flex-1 bg-white flex flex-col items-center justify-center text-neutral-400 gap-4 select-text">
-                    <i data-lucide="ghost" width="64" class="opacity-20"></i>
-                    <div class="text-center">
-                        <h3 class="font-medium text-neutral-600">Hidden Folder</h3>
-                        <p class="text-sm mt-1">This folder is only visible via Ctrl+Shift+.</p>
+                <div class="flex-1 bg-white flex flex-col items-center justify-center text-neutral-500 gap-4 select-none relative" onclick="deselectHiddenFolder()">
+                    <!-- Hidden clickable area in top right -->
+                    <div 
+                        onclick="selectHiddenFolder(event)"
+                        ondblclick="openHiddenFolder()"
+                        class="absolute top-8 right-8 w-24 h-24 cursor-pointer transition-all ${state.hiddenFolderSelected ? 'bg-blue-300/40 border-2 border-blue-400/50 rounded-lg' : ''}"
+                    ></div>
+                    <div class="text-center pointer-events-none">
+                        <p class="text-lg font-medium">${t('secret_empty')}</p>
                     </div>
                 </div>
             `;
@@ -611,6 +871,7 @@ ${t('contact_content')}
 
         window.changeLang = function(lang) {
             state.lang = lang;
+            localStorage.setItem('preferredLanguage', lang);
             state.langDropdownOpen = false;
             render(); 
         };
@@ -632,6 +893,170 @@ ${t('contact_content')}
             }
         };
 
+        window.openSecretFolder = function() {
+            // Show custom pasword dialog
+            const layer = document.getElementById('window-layer');
+            layer.innerHTML = `
+                <div class="absolute inset-0 z-[80] bg-black/30 backdrop-blur-sm flex items-center justify-center pointer-events-auto" onclick="closePaswordDialog(event)">
+                    <div class="bg-white rounded-2xl shadow-2xl p-6 w-80 pointer-events-auto" onclick="event.stopPropagation()">
+                        <h2 class="text-lg font-semibold text-neutral-800 mb-6 text-center">${t('secret_pasword_prompt')}</h2>
+                        <div class="flex gap-3 justify-center mb-3">
+                            <input type="text" maxlength="1" class="pasword-digit w-12 h-14 text-center text-2xl font-semibold border-2 border-neutral-300 rounded-lg focus:border-blue-500 focus:outline-none" data-index="0" />
+                            <input type="text" maxlength="1" class="pasword-digit w-12 h-14 text-center text-2xl font-semibold border-2 border-neutral-300 rounded-lg focus:border-blue-500 focus:outline-none" data-index="1" />
+                            <input type="text" maxlength="1" class="pasword-digit w-12 h-14 text-center text-2xl font-semibold border-2 border-neutral-300 rounded-lg focus:border-blue-500 focus:outline-none" data-index="2" />
+                            <input type="text" maxlength="1" class="pasword-digit w-12 h-14 text-center text-2xl font-semibold border-2 border-neutral-300 rounded-lg focus:border-blue-500 focus:outline-none" data-index="3" />
+                        </div>
+                        <div id="pasword-feedback" class="text-sm text-center mb-4 h-5"></div>
+                        <button id="unlock-btn" onclick="unlockSecret()" disabled class="w-full px-4 py-3 bg-neutral-200 text-neutral-400 rounded-lg font-medium transition-colors cursor-not-allowed">
+                            ${t('secret_pasword_unlock')}
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Setup pasword inputs
+            setTimeout(() => {
+                const inputs = document.querySelectorAll('.pasword-digit');
+                inputs[0].focus();
+                
+                inputs.forEach((input, index) => {
+                    input.addEventListener('input', (e) => {
+                        const value = e.target.value;
+                        if (value && /^\d$/.test(value)) {
+                            // Move to next input
+                            if (index < 3) {
+                                inputs[index + 1].focus();
+                            }
+                            // Check if all filled
+                            checkPaswordComplete();
+                        }
+                    });
+                    
+                    input.addEventListener('keydown', (e) => {
+                        if (e.key === 'Backspace' && !input.value && index > 0) {
+                            inputs[index - 1].focus();
+                        }
+                        // Space key to unlock
+                        if (e.key === ' ' || e.key === 'Spacebar') {
+                            e.preventDefault();
+                            const unlockBtn = document.getElementById('unlock-btn');
+                            if (!unlockBtn.disabled) {
+                                unlockSecret();
+                            }
+                        }
+                    });
+                    
+                    input.addEventListener('paste', (e) => {
+                        e.preventDefault();
+                        const paste = e.clipboardData.getData('text');
+                        const digits = paste.match(/\d/g);
+                        if (digits) {
+                            digits.slice(0, 4).forEach((digit, i) => {
+                                if (inputs[i]) inputs[i].value = digit;
+                            });
+                            checkPaswordComplete();
+                        }
+                    });
+                });
+            }, 100);
+        };
+
+        window.checkPaswordComplete = function() {
+            const inputs = document.querySelectorAll('.pasword-digit');
+            const password = Array.from(inputs).map(input => input.value).join('');
+            const feedback = document.getElementById('pasword-feedback');
+            const unlockBtn = document.getElementById('unlock-btn');
+            
+            if (password.length === 4) {
+                if (password === '2727') { // You found it.
+                    feedback.textContent = '✓ ' + t('secret_pasword_correct');
+                    feedback.className = 'text-sm text-center mb-4 h-5 text-green-500 font-medium';
+                    unlockBtn.disabled = false;
+                    unlockBtn.className = 'w-full px-4 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium transition-colors cursor-pointer';
+                } else {
+                    feedback.textContent = '✗ ' + t('secret_pasword_wrong');
+                    feedback.className = 'text-sm text-center mb-4 h-5 text-red-500 font-medium';
+                    unlockBtn.disabled = true;
+                    unlockBtn.className = 'w-full px-4 py-3 bg-neutral-200 text-neutral-400 rounded-lg font-medium transition-colors cursor-not-allowed';
+                    // Clear inputs after a delay
+                    setTimeout(() => {
+                        inputs.forEach(input => input.value = '');
+                        inputs[0].focus();
+                        feedback.textContent = '';
+                    }, 1000);
+                }
+            } else {
+                feedback.textContent = '';
+                unlockBtn.disabled = true;
+                unlockBtn.className = 'w-full px-4 py-3 bg-neutral-200 text-neutral-400 rounded-lg font-medium transition-colors cursor-not-allowed';
+            }
+        };
+
+        window.unlockSecret = function() {
+            closePaswordDialog();
+            // Clear hidden folder selection when opening secret folder
+            state.hiddenFolderSelected = false;
+            openFolder('secret');
+        };
+
+        window.closePaswordDialog = function(event) {
+            if (event) event.stopPropagation();
+            const layer = document.getElementById('window-layer');
+            layer.innerHTML = '';
+        };
+
+        window.selectHiddenFolder = function(event) {
+            event.stopPropagation();
+            state.hiddenFolderSelected = true;
+            renderWindow();
+        };
+
+        window.deselectHiddenFolder = function() {
+            if (state.hiddenFolderSelected) {
+                state.hiddenFolderSelected = false;
+                renderWindow();
+            }
+        };
+
+        window.openHiddenFolder = function() {
+            // Show a smaller window with message
+            const layer = document.getElementById('window-layer');
+            const existingOverlay = layer.querySelector('.z-\\[80\\]');
+            if (existingOverlay) return; // Prevent multiple overlays
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'absolute inset-0 z-[90] bg-black/30 backdrop-blur-sm flex items-center justify-center pointer-events-auto';
+            overlay.onclick = function(e) {
+                if (e.target === overlay) {
+                    overlay.remove();
+                }
+            };
+            
+            overlay.innerHTML = `
+                <div class="bg-white rounded-xl shadow-2xl w-96 h-64 flex flex-col overflow-hidden pointer-events-auto" onclick="event.stopPropagation()">
+                    <div class="h-10 bg-[#f1f1f1] border-b border-neutral-300 flex items-center justify-between px-4 shrink-0">
+                        <div class="flex items-center gap-2">
+                            <button onclick="this.closest('.z-\\\\[90\\\\]').remove()" class="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e] hover:opacity-80"></button>
+                            <button class="w-3 h-3 rounded-full bg-[#febc2e] border border-[#d89e24] cursor-default"></button>
+                            <button class="w-3 h-3 rounded-full bg-[#28c840] border border-[#1aab29] cursor-default"></button>
+                        </div>
+                        <div class="flex items-center gap-2 text-neutral-600 text-sm font-medium">
+                            <i data-lucide="folder" width="14"></i>
+                            <span>.hidden</span>
+                        </div>
+                        <div class="w-14"></div>
+                    </div>
+                    <div class="flex-1 bg-white flex flex-col items-center justify-center gap-2" style="margin-top: -5px;">
+                        <p class="text-3xl font-medium">${t('hidden_reward')}</p>
+                        <p class="text-sm" style="color: rgb(215, 215, 215);">${t('hidden_claim')}</p>
+                    </div>
+                </div>
+            `;
+            
+            layer.appendChild(overlay);
+            safeRenderIcons(overlay);
+        };
+
         window.openFolder = function(id) {
             // If already open, do nothing (or we could focus it)
             if (state.openFolderId === id && !state.isClosing) return;
@@ -639,7 +1064,12 @@ ${t('contact_content')}
             state.openFolderId = id;
             state.isClosing = false; // Reset close state
 
-            if (id === 'websites') state.selectedFileId = WEBSITE_FILES[0].id;
+            if (id === 'websites') {
+                state.selectedFileId = WEBSITE_FILES[0].id;
+                // Preload all website images when opening the folder
+                preloadAllWebsiteImages();
+            }
+            if (id === 'videos') state.selectedVideoId = VIDEO_FILES[0].id;
             if (id === 'photos') {
                 state.selectedPhotoId = PHOTO_FILES[0].id;
                 state.galleryViewMode = 'single';
@@ -669,37 +1099,51 @@ ${t('contact_content')}
 
         window.selectFile = function(id) {
             state.selectedFileId = id;
+            state.currentImageIndex = 0; // Reset image index when selecting a new file
             renderWindow(); 
+        };
+
+        window.selectWebsiteImage = function(index) {
+            state.currentImageIndex = index;
+            renderWindow();
+        };
+
+        window.nextWebsiteImage = function() {
+            const selectedFile = WEBSITE_FILES.find(f => f.id === state.selectedFileId) || WEBSITE_FILES[0];
+            const images = selectedFile.images || [selectedFile.image];
+            if (state.currentImageIndex < images.length - 1) {
+                state.currentImageIndex++;
+                renderWindow();
+            }
+        };
+
+        window.prevWebsiteImage = function() {
+            if (state.currentImageIndex > 0) {
+                state.currentImageIndex--;
+                renderWindow();
+            }
         };
 
         window.toggleDetails = function() {
             state.isDetailsExpanded = !state.isDetailsExpanded;
             
-            // Direct DOM manipulation for smoother animation without full re-render
+            // Use smooth animation with DOM manipulation
             const panel = document.getElementById('detail-panel');
             const arrow = document.getElementById('detail-arrow');
             const text = document.getElementById('detail-text');
             const imgWrapper = document.getElementById('website-image-wrapper');
             
-            if (panel) {
+            if (panel && imgWrapper) {
                 if (state.isDetailsExpanded) {
                     panel.classList.remove('translate-y-[calc(100%-60px)]');
                     panel.classList.add('translate-y-0');
-                    
-                    // Animate image wrapper shrinking
-                    if (imgWrapper) {
                         imgWrapper.classList.remove('bottom-[60px]');
                         imgWrapper.classList.add('bottom-[45%]');
-                    }
                 } else {
                     panel.classList.add('translate-y-[calc(100%-60px)]');
                     panel.classList.remove('translate-y-0');
-                    
-                    // Animate image wrapper expanding
-                    if (imgWrapper) {
                         imgWrapper.classList.add('bottom-[60px]');
                         imgWrapper.classList.remove('bottom-[45%]');
-                    }
                 }
                 
                 if (text) text.innerText = state.isDetailsExpanded ? t('showLess') : t('showMore');
@@ -710,9 +1154,30 @@ ${t('contact_content')}
                     newIcon.setAttribute('width', '14');
                     newIcon.setAttribute('data-lucide', state.isDetailsExpanded ? 'chevron-down' : 'chevron-up');
                     arrow.replaceWith(newIcon);
-                    // Only re-initialize icons in the panel header if needed, but safeRenderIcons works on root too
-                    // A simple hack to get just this icon rendered:
                     if (window.lucide) lucide.createIcons({ root: newIcon.parentElement });
+                }
+                
+                // For websites folder, update thumbnails and arrows
+                if (state.openFolderId === 'websites') {
+                    // Update the entire image wrapper content to show/hide thumbnails and arrows
+                    setTimeout(() => {
+                        const newContent = getWebsitesContent();
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = newContent;
+                        const newImageWrapper = tempDiv.querySelector('#website-image-wrapper');
+                        const currentImageWrapper = document.getElementById('website-image-wrapper');
+                        
+                        if (newImageWrapper && currentImageWrapper) {
+                            // Get the container with thumbnails
+                            const container = currentImageWrapper.querySelector('.relative.h-full');
+                            const newContainer = newImageWrapper.querySelector('.relative.h-full');
+                            
+                            if (container && newContainer) {
+                                container.innerHTML = newContainer.innerHTML;
+                                safeRenderIcons(container);
+                            }
+                        }
+                    }, 50);
                 }
             } else {
                 // Fallback
@@ -758,6 +1223,76 @@ ${t('contact_content')}
             renderWindow();
         };
 
+        window.selectVideo = function(id) {
+            state.selectedVideoId = id;
+            
+            // Update selection highlight without re-rendering all videos
+            const cards = document.querySelectorAll('[data-video-id]');
+            cards.forEach(card => {
+                if (card.getAttribute('data-video-id') === id) {
+                    card.classList.add('ring-2', 'ring-blue-500', 'rounded-lg');
+                } else {
+                    card.classList.remove('ring-2', 'ring-blue-500', 'rounded-lg');
+                }
+            });
+        };
+
+        window.playVideo = function(id) {
+            const video = VIDEO_FILES.find(v => v.id === id);
+            if (!video) return;
+            
+            state.playingVideoId = id;
+            
+            // Calculate width based on aspect ratio
+            // Fixed height: 700px (minus 40px for header = 660px video height)
+            const videoHeight = 660;
+            const [width, height] = video.aspectRatio.split(':').map(Number);
+            const aspectRatio = width / height;
+            const calculatedWidth = Math.round(videoHeight * aspectRatio);
+            
+            // Create video player overlay on top of existing window
+            const layer = document.getElementById('window-layer');
+            const videoPlayerHTML = `
+                <div class="absolute inset-0 z-[60] pointer-events-auto" data-video-backdrop="true" onclick="closeVideoPlayer()"></div>
+                <div id="video-player" class="absolute inset-0 m-auto z-[70] pointer-events-auto bg-black rounded-xl shadow-2xl flex flex-col overflow-hidden border border-neutral-800 window-enter" style="width: ${calculatedWidth}px; height: 700px;">
+                    <div class="h-10 bg-[#2a2a2a] border-b border-neutral-700 flex items-center justify-between px-4 shrink-0">
+                        <div class="flex items-center gap-2 group">
+                            <button onclick="closeVideoPlayer()" class="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e] flex items-center justify-center hover:opacity-80">
+                                <i data-lucide="x" width="7" stroke-width="3" class="opacity-0 group-hover:opacity-100 text-black/60"></i>
+                            </button>
+                            <button class="w-3 h-3 rounded-full bg-[#febc2e] border border-[#d89e24] cursor-default"></button>
+                            <button class="w-3 h-3 rounded-full bg-[#28c840] border border-[#1aab29] cursor-default"></button>
+                        </div>
+                        <div class="text-neutral-300 font-medium text-sm">${getVideoTitle(video)}</div>
+                        <div class="w-14"></div>
+                    </div>
+                    <div class="flex-1 bg-black flex items-center justify-center overflow-hidden">
+                        <video id="active-video" controls autoplay controlsList="nodownload noplaybackrate noremoteplayback" disablepictureinpicture class="w-full h-full object-contain">
+                            <source src="${video.videoUrl}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            `;
+            
+            layer.insertAdjacentHTML('beforeend', videoPlayerHTML);
+            safeRenderIcons(layer);
+        };
+
+        window.closeVideoPlayer = function() {
+            state.playingVideoId = null;
+            const video = document.getElementById('active-video');
+            if (video) video.pause();
+            
+            const layer = document.getElementById('window-layer');
+            if (layer) {
+                const backdrops = layer.querySelectorAll('[data-video-backdrop="true"]');
+                backdrops.forEach(el => el.remove());
+                const player = document.getElementById('video-player');
+                if (player) player.remove();
+            }
+        };
+
         // --- GLOBAL EVENT LISTENERS ---
         document.addEventListener('keydown', (e) => {
             // Control + Shift + . (Also support Meta/Command for Mac)
@@ -765,6 +1300,209 @@ ${t('contact_content')}
                 e.preventDefault();
                 state.showHidden = !state.showHidden;
                 renderDesktop();
+            }
+            
+            // Space key handler
+            if (e.key === ' ' || e.code === 'Space') {
+                e.preventDefault();
+                
+                // If video player is open, close it
+                if (state.playingVideoId) {
+                    closeVideoPlayer();
+                    return;
+                }
+                
+                // If in websites folder, toggle details
+                if (state.openFolderId === 'websites') {
+                    toggleDetails();
+                    return;
+                }
+                
+                // If in videos folder, play selected video
+                if (state.openFolderId === 'videos') {
+                    playVideo(state.selectedVideoId);
+                    return;
+                }
+                
+                // If in photos folder, toggle view mode or view photo
+                if (state.openFolderId === 'photos') {
+                    if (state.galleryViewMode === 'single') {
+                        setGalleryMode('grid');
+                    } else {
+                        // In grid mode, space = view photo (like double click)
+                        selectPhotoAndSwitch(state.selectedPhotoId);
+                    }
+                    return;
+                }
+                
+                // If in contact folder, close it
+                if (state.openFolderId === 'contact') {
+                    closeWindow();
+                    return;
+                }
+                
+                // Secret folder: space key is disabled (no close action)
+                if (state.openFolderId === 'secret') {
+                    return;
+                }
+                
+                // If a desktop icon is selected, open it (except secret folder)
+                if (state.selectedDesktopId) {
+                    if (state.selectedDesktopId === 'secret') {
+                        openSecretFolder();
+                    } else {
+                        openFolder(state.selectedDesktopId);
+                    }
+                }
+            }
+            
+            // ESC key to close window or video player
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                
+                // If video player is open, close it
+                if (state.playingVideoId) {
+                    closeVideoPlayer();
+                    return;
+                }
+                
+                // If a window is open, close it
+                if (state.openFolderId) {
+                    closeWindow();
+                    return;
+                }
+            }
+            
+            // Arrow keys navigation
+            if (e.key.startsWith('Arrow')) {
+                e.preventDefault();
+                
+                // Desktop navigation
+                if (!state.openFolderId) {
+                    const icons = ['websites', 'videos', 'contact'];
+                    if (state.showHidden) {
+                        icons.push('photos');
+                        icons.push('secret');
+                    }
+                    
+                    let currentIndex = state.selectedDesktopId ? icons.indexOf(state.selectedDesktopId) : -1;
+                    
+                    if (e.key === 'ArrowDown') {
+                        currentIndex = (currentIndex + 1) % icons.length;
+                    } else if (e.key === 'ArrowUp') {
+                        currentIndex = (currentIndex - 1 + icons.length) % icons.length;
+                    } else if (e.key === 'ArrowRight') {
+                        currentIndex = (currentIndex + 1) % icons.length;
+                    } else if (e.key === 'ArrowLeft') {
+                        currentIndex = (currentIndex - 1 + icons.length) % icons.length;
+                    }
+                    
+                    state.selectedDesktopId = icons[currentIndex];
+                    renderDesktop();
+                    return;
+                }
+                
+                // Websites folder navigation
+                if (state.openFolderId === 'websites') {
+                    const selectedFile = WEBSITE_FILES.find(f => f.id === state.selectedFileId) || WEBSITE_FILES[0];
+                    const images = selectedFile.images || [selectedFile.image];
+                    
+                    if (e.key === 'ArrowUp') {
+                        const currentIndex = WEBSITE_FILES.findIndex(f => f.id === state.selectedFileId);
+                        if (currentIndex > 0) {
+                            state.selectedFileId = WEBSITE_FILES[currentIndex - 1].id;
+                            state.currentImageIndex = 0;
+                            renderWindow();
+                        }
+                    } else if (e.key === 'ArrowDown') {
+                        const currentIndex = WEBSITE_FILES.findIndex(f => f.id === state.selectedFileId);
+                        if (currentIndex < WEBSITE_FILES.length - 1) {
+                            state.selectedFileId = WEBSITE_FILES[currentIndex + 1].id;
+                            state.currentImageIndex = 0;
+                            renderWindow();
+                        }
+                    } else if (e.key === 'ArrowLeft' && images.length > 1) {
+                        // Navigate to previous image
+                        if (state.currentImageIndex > 0) {
+                            state.currentImageIndex--;
+                            renderWindow();
+                        }
+                    } else if (e.key === 'ArrowRight' && images.length > 1) {
+                        // Navigate to next image
+                        if (state.currentImageIndex < images.length - 1) {
+                            state.currentImageIndex++;
+                            renderWindow();
+                        }
+                    }
+                    return;
+                }
+                
+                // Videos folder navigation
+                if (state.openFolderId === 'videos') {
+                    const currentIndex = VIDEO_FILES.findIndex(v => v.id === state.selectedVideoId);
+                    let newIndex = currentIndex;
+                    
+                    // Detect actual number of columns from the grid layout
+                    const gridEl = document.querySelector('#window-content .grid');
+                    const cols = gridEl ? getComputedStyle(gridEl).gridTemplateColumns.split(' ').length : 5;
+                    
+                    if (e.key === 'ArrowLeft') {
+                        newIndex = (currentIndex - 1 + VIDEO_FILES.length) % VIDEO_FILES.length;
+                    } else if (e.key === 'ArrowRight') {
+                        newIndex = (currentIndex + 1) % VIDEO_FILES.length;
+                    } else if (e.key === 'ArrowUp') {
+                        newIndex = Math.max(0, currentIndex - cols);
+                    } else if (e.key === 'ArrowDown') {
+                        newIndex = Math.min(VIDEO_FILES.length - 1, currentIndex + cols);
+                    }
+                    
+                    if (newIndex !== currentIndex) {
+                        // Reuse selectVideo to avoid re-rendering thumbnails
+                        window.selectVideo(VIDEO_FILES[newIndex].id);
+                    }
+                    return;
+                }
+                
+                // Photos folder navigation
+                if (state.openFolderId === 'photos') {
+                    if (state.galleryViewMode === 'single') {
+                        // Single view: left/right to switch photos
+                        if (e.key === 'ArrowLeft') {
+                            const currentIndex = PHOTO_FILES.findIndex(p => p.id === state.selectedPhotoId);
+                            const newIndex = (currentIndex - 1 + PHOTO_FILES.length) % PHOTO_FILES.length;
+                            state.slideDirection = 'left';
+                            state.selectedPhotoId = PHOTO_FILES[newIndex].id;
+                            renderWindow();
+                        } else if (e.key === 'ArrowRight') {
+                            const currentIndex = PHOTO_FILES.findIndex(p => p.id === state.selectedPhotoId);
+                            const newIndex = (currentIndex + 1) % PHOTO_FILES.length;
+                            state.slideDirection = 'right';
+                            state.selectedPhotoId = PHOTO_FILES[newIndex].id;
+                            renderWindow();
+                        }
+                    } else {
+                        // Grid view: all arrow keys to navigate
+                        const currentIndex = PHOTO_FILES.findIndex(p => p.id === state.selectedPhotoId);
+                        let newIndex = currentIndex;
+                        const cols = 6; // Match the grid-cols-6 in getPhotosContent
+                        
+                        if (e.key === 'ArrowUp') {
+                            newIndex = Math.max(0, currentIndex - cols);
+                        } else if (e.key === 'ArrowDown') {
+                            newIndex = Math.min(PHOTO_FILES.length - 1, currentIndex + cols);
+                        } else if (e.key === 'ArrowLeft') {
+                            newIndex = (currentIndex - 1 + PHOTO_FILES.length) % PHOTO_FILES.length;
+                        } else if (e.key === 'ArrowRight') {
+                            newIndex = (currentIndex + 1) % PHOTO_FILES.length;
+                        }
+                        
+                        if (newIndex !== currentIndex) {
+                            state.selectedPhotoId = PHOTO_FILES[newIndex].id;
+                            renderWindow();
+                        }
+                    }
+                    return;
+                }
             }
         });
 
@@ -779,7 +1517,9 @@ ${t('contact_content')}
             document.getElementById('ui-layer').classList.add('hidden');
             document.getElementById('window-layer').classList.add('hidden');
         } else {
-            render();
+            // Preload all website images on page load
+            preloadAllWebsiteImages();
+        render();
         }
 
     </script>
