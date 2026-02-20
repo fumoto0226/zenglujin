@@ -181,7 +181,7 @@
             zh: {
                 websites: "网站",
                 videos: "视频",
-                photos: "图像",
+                photos: "图库",
                 icons: "图标库",
                 contact: "联系方式.txt",
                 label_type: "类型",
@@ -324,14 +324,22 @@
         ];
 
         const PHOTO_FILES = [
-            { id: 'ph1', url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=800&auto=format&fit=crop', title: 'Mountain' },
-            { id: 'ph2', url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800&auto=format&fit=crop', title: 'Forest' },
-            { id: 'ph3', url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=800&auto=format&fit=crop', title: 'Valley' },
-            { id: 'ph4', url: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop', title: 'Lake' },
-            { id: 'ph5', url: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=800&auto=format&fit=crop', title: 'Field' },
-            { id: 'ph6', url: 'https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=800&auto=format&fit=crop', title: 'Waterfall' },
-            { id: 'ph7', url: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=800&auto=format&fit=crop', title: 'Tree' },
-            { id: 'ph8', url: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=800&auto=format&fit=crop', title: 'Ocean' },
+            { id: 'ph1', url: 'img/gallery/001.jpg', title: '001' },
+            { id: 'ph2', url: 'img/gallery/002.jpg', title: '002' },
+            { id: 'ph3', url: 'img/gallery/003.jpg', title: '003' },
+            { id: 'ph4', url: 'img/gallery/004.jpg', title: '004' },
+            { id: 'ph5', url: 'img/gallery/005.jpg', title: '005' },
+            { id: 'ph6', url: 'img/gallery/006.png', title: '006' },
+            { id: 'ph7', url: 'img/gallery/007.PNG', title: '007' },
+            { id: 'ph8', url: 'img/gallery/008.jpg', title: '008' },
+            { id: 'ph9', url: 'img/gallery/009.png', title: '009' },
+            { id: 'ph10', url: 'img/gallery/010.jpg', title: '010' },
+            { id: 'ph11', url: 'img/gallery/011.jpg', title: '011' },
+            { id: 'ph12', url: 'img/gallery/012.jpg', title: '012' },
+            { id: 'ph13', url: 'img/gallery/013.jpg', title: '013' },
+            { id: 'ph14', url: 'img/gallery/014.jpg', title: '014' },
+            { id: 'ph15', url: 'img/gallery/015.jpg', title: '015' },
+            { id: 'ph16', url: 'img/gallery/016.jpg', title: '016' },
         ];
 
         // --- STATE MANAGEMENT ---
@@ -415,19 +423,12 @@
             const icons = [
                 { id: 'websites', icon: 'folder', label: t('websites'), color: '#5ea0d6', fill: '#7dc0f5' },
                 { id: 'videos', icon: 'folder', label: t('videos'), color: '#5ea0d6', fill: '#7dc0f5' },
+                { id: 'photos', icon: 'folder', label: t('photos'), color: '#5ea0d6', fill: '#7dc0f5' },
                 { id: 'contact', icon: 'file-text', label: t('contact'), color: '#525252', fill: 'white' }
             ];
 
-            // Add photos folder if state.showHidden is true
+            // Add secret folder if state.showHidden is true
             if (state.showHidden) {
-                icons.push({ 
-                    id: 'photos', 
-                    icon: 'folder', 
-                    label: t('photos'), 
-                    color: '#5ea0d6', 
-                    fill: '#7dc0f5',
-                    isHidden: true
-                });
                 icons.push({ 
                     id: 'secret', 
                     icon: 'folder-lock', 
@@ -468,7 +469,7 @@
                 </div>
                 <div class="absolute bottom-6 right-8 pointer-events-none select-none text-right">
                     <div class="mb-1 leading-snug" style="color:#4E4E4E;">
-                        <p class="text-[10px] font-medium tracking-wide">${({
+                        <p class="text-[12px] font-medium tracking-wide">${({
                             zh: '个人作品集/项目记录，点击文件夹浏览。',
                             ja: '個人ポートフォリオ/プロジェクト記録です。フォルダをクリックしてご覧ください。',
                             en: 'Portfolio / Project archive. Click folders to explore.'
@@ -1407,9 +1408,8 @@ ${content}
                 
                 // Desktop navigation
                 if (!state.openFolderId) {
-                    const icons = ['websites', 'videos', 'contact'];
+                    const icons = ['websites', 'videos', 'photos', 'contact'];
                     if (state.showHidden) {
-                        icons.push('photos');
                         icons.push('secret');
                     }
                     
