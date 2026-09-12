@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio</title>
+    <title>Zenglujin Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23000'/%3E%3C/svg%3E" />
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -46,6 +47,14 @@
         .custom-scrollbar::-webkit-scrollbar-track { background-color: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(0, 0, 0, 0.2); border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: rgba(0, 0, 0, 0.3); }
+
+        /* Gallery strip: slim and only visible while scrolling */
+        .gallery-scrollbar { scrollbar-width: thin; scrollbar-color: transparent transparent; }
+        .gallery-scrollbar::-webkit-scrollbar { height: 3px; background-color: transparent; }
+        .gallery-scrollbar::-webkit-scrollbar-track { background-color: transparent; }
+        .gallery-scrollbar::-webkit-scrollbar-thumb { background-color: transparent; border-radius: 999px; }
+        .gallery-scrollbar.is-scrolling { scrollbar-color: rgba(0, 0, 0, 0.24) transparent; }
+        .gallery-scrollbar.is-scrolling::-webkit-scrollbar-thumb { background-color: rgba(0, 0, 0, 0.24); }
         
         /* Hide scrollbar for clean UI but allow scroll */
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -104,7 +113,7 @@
     </div>
 
     <!-- Layer 3: Top Bar (UI) -->
-    <div id="ui-layer" class="absolute inset-0 z-20 pointer-events-none">
+    <div id="ui-layer" class="absolute inset-0 z-40 pointer-events-none">
         <!-- Injected by JS -->
     </div>
 
@@ -122,7 +131,6 @@
                 photos: "Gallery",
                 icons: "Icon Library",
                 contact: "Contact.txt",
-                label_type: "Type",
                 label_platform: "Platform",
                 label_tech: "Language",
                 created: "Created",
@@ -148,6 +156,12 @@
                 project3_desc: "Website introducing Cocoon Tower in Shinjuku.",
                 type_concept: "Concept / Design",
                 type_commercial: "Commercial",
+                category_commercial: "Commercial",
+                category_practice: "Practice",
+                project6_name: "mogumode",
+                project6_desc: "A user-led restaurant review website that adds ratings from friends, making store scores more useful and trustworthy.",
+                project7_name: "fruitlab",
+                project7_desc: "A homepage for a fictional fruit-box delivery shop, using Three.js to provide an interactive 3D selection experience.",
                 
                 category_other: "Other",
                 project5_name: "WowoPopo",
@@ -184,7 +198,6 @@
                 photos: "图库",
                 icons: "图标库",
                 contact: "联系方式.txt",
-                label_type: "类型",
                 label_platform: "平台",
                 label_tech: "语言",
                 created: "创建日期",
@@ -210,6 +223,12 @@
                 project3_desc: "介绍位于新宿的cocoon tower大楼的网站。",
                 type_concept: "概念设计",
                 type_commercial: "商业项目",
+                category_commercial: "商业",
+                category_practice: "习作",
+                project6_name: "mogumode",
+                project6_desc: "用户主导的店铺点评网站，增加了朋友评分的功能，提高店铺评分的参考价值。",
+                project7_name: "fruitlab",
+                project7_desc: "一个虚拟的水果盒子外卖店铺首页，使用了 Three.js 为用户的选择过程提供 3D 交互体验。",
                 
                 category_other: "其他",
                 project5_name: "窝窝坡坡",
@@ -221,7 +240,7 @@
                 tech_zh: "中文",
                 
                 text_kind: "纯文本文件",
-                contact_content: "姓名: 曾麓瑾\n邮箱: cenglujin@gmail.com\n电话: (+86) 18081345866 / (+81) 07076592037\n微信: kururugi111 （优先微信联系，其他方式可能联系不到。）\n\n欢迎随时联系合作！",
+                contact_content: "姓名: 曾麓瑾\n邮箱: cenglujin@gmail.com\n电话: (+86) 18081345866 / (+81) 07076592037\n微信: kururugi111 （优先微信联系）\n\n欢迎随时联系合作！",
                 mobile_warning_title: "暂不支持手机访问",
                 mobile_warning_message: "本网站暂不支持手机设备查看，请用电脑访问以获得最佳体验。",
                 
@@ -246,7 +265,6 @@
                 photos: "ギャラリー",
                 icons: "アイコン素材",
                 contact: "連絡先.txt",
-                label_type: "タイプ",
                 label_platform: "対応環境",
                 label_tech: "言語",
                 created: "作成日",
@@ -272,6 +290,12 @@
                 project3_desc: "新宿にあるコクーンタワービルを紹介するウェブサイト。",
                 type_concept: "コンセプト",
                 type_commercial: "商用プロジェクト",
+                category_commercial: "商業",
+                category_practice: "習作",
+                project6_name: "mogumode",
+                project6_desc: "ユーザー主体の店舗レビューサイト。友人による評価機能を加え、店舗評価の参考価値を高めています。",
+                project7_name: "fruitlab",
+                project7_desc: "架空のフルーツボックス宅配店のホームページ。Three.js を使い、商品を選ぶ過程に3Dインタラクションを取り入れています。",
                 
                 category_other: "その他",
                 project5_name: "WowoPopo",
@@ -305,11 +329,13 @@
         };
 
         const WEBSITE_FILES = [
-            { id: 'p0', nameKey: 'project0_name', descKey: 'project0_desc', typeKey: 'type_tool', platform: 'platform_pc_mobile', tech: 'tech_en_ja_zh', category: 'websites', images: ['img/website/FontCraft.jpg', 'img/website/FontCraft-2.jpg', 'img/website/FontCraft-3.jpg', 'img/website/FontCraft-4.jpg'], url: '#', date: '2026.02' },
-            { id: 'p1', nameKey: 'project1_name', descKey: 'project1_desc', typeKey: 'type_studio', platform: 'platform_pc_mobile', tech: 'tech_en_zh', category: 'websites', images: ['img/website/QingYan-Studio.jpg', 'img/website/QingYan-Studio-2.jpg', 'img/website/QingYan-Studio-3.jpg', 'img/website/QingYan-Studio-4.jpg', 'img/website/QingYan-Studio-5.jpg', 'img/website/QingYan-Studio-6.jpg'], url: 'https://fumoto0226.github.io/qzhuphoto/', date: '2026.02' },
-            { id: 'p2', nameKey: 'project2_name', descKey: 'project2_desc', typeKey: 'type_personal', platform: 'platform_pc', tech: 'tech_japanese', category: 'websites', images: ['img/website/mms.jpg', 'img/website/mms-2.jpg', 'img/website/mms-3.jpg', 'img/website/mms-4.jpg', 'img/website/mms-5.jpg', 'img/website/mms-6.jpg'], url: 'https://fumoto0226.github.io/mms/', date: '2025.12' },
-            { id: 'p3', nameKey: 'project3_name', descKey: 'project3_desc', typeKey: 'type_personal', platform: 'platform_pc', tech: 'tech_japanese', category: 'websites', images: ['img/website/cocoon.jpg', 'img/website/cocoon-2.jpg', 'img/website/cocoon-3.jpg', 'img/website/cocoon-4.jpg'], url: 'https://fumoto0226.github.io/cocoon-web2/', date: '2025.07' },
-            { id: 'p5', nameKey: 'project5_name', descKey: 'project5_desc', typeKey: 'type_tool_game', platform: 'platform_wechat', tech: 'tech_zh', category: 'other', images: ['img/website/Wowopopo.jpg', 'img/website/Wowopopo-2.jpg'], noUrl: true, date: '2026.01' }
+            { id: 'p1', nameKey: 'project1_name', descKey: 'project1_desc', platform: 'platform_pc_mobile', tech: 'tech_en_zh', category: 'commercial', images: ['img/website/QingYan-Studio.jpg', 'img/website/QingYan-Studio-2.jpg', 'img/website/QingYan-Studio-3.jpg', 'img/website/QingYan-Studio-4.jpg', 'img/website/QingYan-Studio-5.jpg', 'img/website/QingYan-Studio-6.jpg'], url: 'https://fumoto0226.github.io/qzhuphoto/', date: '2026.02' },
+            { id: 'p7', nameKey: 'project7_name', descKey: 'project7_desc', platform: 'platform_pc', tech: 'tech_japanese', category: 'practice', images: ['img/website/fruitlab.jpg'], url: 'https://fumoto0226.github.io/fruitslab/', date: '2026.08' },
+            { id: 'p6', nameKey: 'project6_name', descKey: 'project6_desc', platform: 'platform_pc_mobile', tech: 'tech_en_ja_zh', category: 'practice', images: ['img/website/mogumode.jpg'], url: 'https://mogumode.online/', date: '2026.04' },
+            { id: 'p0', nameKey: 'project0_name', descKey: 'project0_desc', platform: 'platform_pc_mobile', tech: 'tech_en_ja_zh', category: 'practice', images: ['img/website/FontCraft.jpg', 'img/website/FontCraft-2.jpg', 'img/website/FontCraft-3.jpg', 'img/website/FontCraft-4.jpg'], url: '#', date: '2026.02' },
+            { id: 'p5', nameKey: 'project5_name', descKey: 'project5_desc', platform: 'platform_wechat', tech: 'tech_zh', category: 'practice', images: ['img/website/Wowopopo.jpg', 'img/website/Wowopopo-2.jpg'], noUrl: true, date: '2026.01' },
+            { id: 'p2', nameKey: 'project2_name', descKey: 'project2_desc', platform: 'platform_pc', tech: 'tech_japanese', category: 'practice', images: ['img/website/mms.jpg', 'img/website/mms-2.jpg', 'img/website/mms-3.jpg', 'img/website/mms-4.jpg', 'img/website/mms-5.jpg', 'img/website/mms-6.jpg'], url: 'https://fumoto0226.github.io/mms/', date: '2025.12' },
+            { id: 'p3', nameKey: 'project3_name', descKey: 'project3_desc', platform: 'platform_pc', tech: 'tech_japanese', category: 'practice', images: ['img/website/cocoon.jpg', 'img/website/cocoon-2.jpg', 'img/website/cocoon-3.jpg', 'img/website/cocoon-4.jpg'], url: 'https://fumoto0226.github.io/cocoon-web2/', date: '2025.07' }
         ];
 
         const VIDEO_FILES = [
@@ -324,6 +350,7 @@
         ];
 
         const PHOTO_FILES = [
+            { id: 'ph17', url: 'img/gallery/kakigori.jpg', title: 'kakigori' },
             { id: 'ph1', url: 'img/gallery/001.jpg', title: '001' },
             { id: 'ph2', url: 'img/gallery/002.jpg', title: '002' },
             { id: 'ph3', url: 'img/gallery/003.jpg', title: '003' },
@@ -353,6 +380,8 @@
             selectedPhotoId: PHOTO_FILES[0].id,
             galleryViewMode: 'single', // 'single' or 'grid'
             isDetailsExpanded: false,
+            hasShownDetailsIntro: false,
+            detailsIntroTimer: null,
             langDropdownOpen: false,
             slideDirection: 'right',
             isClosing: false, // Track closing state
@@ -442,8 +471,8 @@
 
             container.innerHTML = icons.map(icon => `
                 <div 
+                    data-desktop-id="${icon.id}"
                     onclick="selectDesktop(event, '${icon.id}')"
-                    ondblclick="${icon.needsPasword ? 'openSecretFolder()' : `openFolder('${icon.id}')`}"
                     class="flex flex-col items-center justify-start w-28 p-3 rounded-lg cursor-pointer transition-all duration-100 group ${state.selectedDesktopId === icon.id ? 'bg-blue-300/40 border border-blue-400/30 backdrop-blur-sm' : 'hover:bg-black/5 border border-transparent'} ${icon.isHidden ? 'opacity-60 hover:opacity-100' : ''}"
                 >
                     <div class="mb-1 relative">
@@ -475,9 +504,6 @@
                             en: 'Portfolio / Project archive. Click folders to explore.'
                         }[state.lang] || 'Portfolio / Project archive. Click folders to explore.')}</p>
                     </div>
-                    <p class="text-[10px] text-neutral-400/80 font-medium tracking-widest uppercase">
-                        © 2026 zenglujin. All Rights Reserved.
-                    </p>
                 </div>
             `;
         }
@@ -545,7 +571,7 @@
                 // CRITICAL FIX: Added pointer-events-auto to the background overlay so it captures clicks
                 const windowSize = state.openFolderId === 'secret' ? 'max-w-4xl max-h-[600px]' : 'max-w-6xl max-h-[800px]';
                 layer.innerHTML = `
-                    <div class="absolute inset-0 z-40 pointer-events-auto" onclick="closeWindow()"></div>
+                    <div class="absolute inset-0 z-40 pointer-events-auto" onclick="handleWindowBackdropClick(event)" onmousemove="handleWindowBackdropPointer(event)" onmouseleave="clearDesktopBackdropHover(); this.style.cursor='default'"></div>
                     <div id="active-window" class="relative z-50 pointer-events-auto bg-white w-full h-full ${windowSize} rounded-xl shadow-2xl flex flex-col overflow-hidden border border-neutral-300 window-enter">
                         <div class="h-12 bg-[#f1f1f1] border-b border-neutral-300 flex items-center justify-between px-4 shrink-0" id="window-header"></div>
                         <div id="window-content" class="flex-1 flex overflow-hidden bg-white relative"></div>
@@ -622,10 +648,20 @@
             // Attach listeners
             const thumbStrip = document.getElementById('thumbnail-strip');
             if (thumbStrip) {
+                const showGalleryScrollbar = () => {
+                    thumbStrip.classList.add('is-scrolling');
+                    clearTimeout(thumbStrip.scrollbarHideTimer);
+                    thumbStrip.scrollbarHideTimer = setTimeout(() => {
+                        thumbStrip.classList.remove('is-scrolling');
+                    }, 700);
+                };
+
                 thumbStrip.addEventListener('wheel', (e) => {
                     e.preventDefault();
                     thumbStrip.scrollLeft += e.deltaY;
+                    showGalleryScrollbar();
                 });
+                thumbStrip.addEventListener('scroll', showGalleryScrollbar, { passive: true });
             }
             
             // Final icon render to ensure all icons are displayed correctly
@@ -657,15 +693,15 @@
 
             return `
                 <div id="sidebar-scroll" class="w-64 bg-[#f5f5f5]/80 backdrop-blur-xl border-r border-neutral-200 flex flex-col overflow-y-auto pt-2 shrink-0">
-                    <div class="px-3 py-2 text-[10px] font-bold text-neutral-400 uppercase tracking-wider">${t('websites')}</div>
-                    ${WEBSITE_FILES.filter(f => f.category === 'websites').map(file => `
+                    <div class="px-3 py-2 text-[10px] font-bold text-neutral-400 uppercase tracking-wider">${t('category_commercial')}</div>
+                    ${WEBSITE_FILES.filter(f => f.category === 'commercial').sort((a, b) => b.date.localeCompare(a.date)).map(file => `
                         <div onclick="selectFile('${file.id}')" class="mx-2 px-3 py-2 rounded-md flex items-center gap-3 cursor-pointer text-sm transition-colors mb-1 ${state.selectedFileId === file.id ? 'bg-blue-500 text-white shadow-sm' : 'text-neutral-700 hover:bg-neutral-200/60'}">
                             <i data-lucide="globe" width="16" class="${state.selectedFileId === file.id ? 'text-blue-100' : 'text-neutral-500'}"></i>
                             <span class="truncate font-medium">${t(file.nameKey)}</span>
                         </div>
                     `).join('')}
-                    <div class="px-3 py-2 mt-2 text-[10px] font-bold text-neutral-400 uppercase tracking-wider">${t('category_other')}</div>
-                    ${WEBSITE_FILES.filter(f => f.category === 'other').map(file => `
+                    <div class="px-3 py-2 mt-2 text-[10px] font-bold text-neutral-400 uppercase tracking-wider">${t('category_practice')}</div>
+                    ${WEBSITE_FILES.filter(f => f.category === 'practice').sort((a, b) => b.date.localeCompare(a.date)).map(file => `
                         <div onclick="selectFile('${file.id}')" class="mx-2 px-3 py-2 rounded-md flex items-center gap-3 cursor-pointer text-sm transition-colors mb-1 ${state.selectedFileId === file.id ? 'bg-blue-500 text-white shadow-sm' : 'text-neutral-700 hover:bg-neutral-200/60'}">
                             <i data-lucide="globe" width="16" class="${state.selectedFileId === file.id ? 'text-blue-100' : 'text-neutral-500'}"></i>
                             <span class="truncate font-medium">${t(file.nameKey)}</span>
@@ -685,7 +721,7 @@
                             ` : ''}
                             
                             <!-- Main Image (always centered) -->
-                            <div class="h-full w-auto aspect-video max-w-full rounded-lg border border-neutral-200 relative group overflow-hidden z-10">
+                            <div onclick="toggleDetails()" class="h-full w-auto aspect-video max-w-full rounded-lg border border-neutral-200 relative group overflow-hidden z-10 cursor-pointer">
                                 <div class="absolute inset-0 flex transition-transform duration-500 ease-out" style="transform: translateX(-${state.currentImageIndex * 100}%)">
                                     ${images.map((img, idx) => `
                                         <div class="w-full h-full shrink-0" style="background-image: url('${img}'); background-size: cover; background-position: center;">
@@ -702,12 +738,12 @@
                                 <!-- Navigation Arrows (only show when collapsed) -->
                                 ${hasMultipleImages && !state.isDetailsExpanded ? `
                                     ${state.currentImageIndex > 0 ? `
-                                        <button onclick="prevWebsiteImage()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/50 hover:bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg z-10 group/btn">
+                                        <button onclick="event.stopPropagation(); prevWebsiteImage()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/50 hover:bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg z-10 group/btn">
                                             <i data-lucide="chevron-left" width="28" class="text-white group-hover/btn:text-black transition-colors"></i>
                                         </button>
                                     ` : ''}
                                     ${state.currentImageIndex < images.length - 1 ? `
-                                        <button onclick="nextWebsiteImage()" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/50 hover:bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg z-10 group/btn">
+                                        <button onclick="event.stopPropagation(); nextWebsiteImage()" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/50 hover:bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg z-10 group/btn">
                                             <i data-lucide="chevron-right" width="28" class="text-white group-hover/btn:text-black transition-colors"></i>
                                         </button>
                                     ` : ''}
@@ -716,7 +752,7 @@
                                 <!-- Open Site Button -->
                                 ${!selectedFile.noUrl ? `
                                 <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                                    <a href="${selectedFile.url}" target="_blank" class="bg-white/20 backdrop-blur-md border border-white/50 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors flex items-center gap-2 pointer-events-auto">
+                                    <a href="${selectedFile.url}" target="_blank" onclick="event.stopPropagation()" class="bg-white/20 backdrop-blur-md border border-white/50 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors flex items-center gap-2 pointer-events-auto">
                                     ${t('openSite')} <i data-lucide="external-link" width="14"></i>
                                 </a>
                             </div>
@@ -750,8 +786,6 @@
                         <div class="overflow-y-auto custom-scrollbar flex-1 bg-transparent">
                             <div class="px-8 pb-10 pt-2">
                                  <div class="grid grid-cols-[80px_1fr] gap-y-3 text-sm max-w-2xl">
-                                    <div class="text-neutral-400 font-medium text-right pr-4">${t('label_type')}</div>
-                                    <div class="text-neutral-700">${t(selectedFile.typeKey)}</div>
                                     <div class="text-neutral-400 font-medium text-right pr-4">${t('label_platform')}</div>
                                     <div class="text-neutral-700">${t(selectedFile.platform)}</div>
                                     <div class="text-neutral-400 font-medium text-right pr-4">${t('label_tech')}</div>
@@ -816,7 +850,7 @@
                     <div id="grid-scroll" class="flex-1 bg-white p-6 overflow-y-auto">
                         <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6">
                             ${PHOTO_FILES.map(photo => `
-                                <div onclick="selectPhoto('${photo.id}')" ondblclick="selectPhotoAndSwitch('${photo.id}')" class="group cursor-pointer flex flex-col gap-2 ${state.selectedPhotoId === photo.id ? 'ring-2 ring-blue-500 rounded-lg' : ''}">
+                                <div onclick="selectPhotoAndSwitch('${photo.id}')" class="group cursor-pointer flex flex-col gap-2 ${state.selectedPhotoId === photo.id ? 'ring-2 ring-blue-500 rounded-lg' : ''}">
                                     <div class="aspect-[4/3] w-full rounded-md overflow-hidden bg-neutral-100 shadow-sm border border-neutral-200 group-hover:shadow-md transition-all">
                                         <img src="${photo.url}" alt="${photo.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
                                     </div>
@@ -838,7 +872,7 @@
                             class="max-w-full max-h-full object-contain rounded-sm"
                         />
                     </div>
-                    <div id="thumbnail-strip" class="h-20 bg-neutral-50 border-t border-neutral-200 p-4 flex gap-3 overflow-x-auto shrink-0 items-center custom-scrollbar">
+                    <div id="thumbnail-strip" class="h-20 bg-neutral-50 border-t border-neutral-200 p-4 flex gap-3 overflow-x-auto shrink-0 items-center gallery-scrollbar">
                         ${PHOTO_FILES.map(photo => `
                             <button 
                                 onclick="selectPhoto('${photo.id}')"
@@ -857,8 +891,8 @@
             let content = t('contact_content');
             // Replace the note with styled span
             content = content.replace(
-                /（优先微信联系，其他方式可能联系不到。）/g,
-                '<span style="margin-left: 10px; color: #9ca3af;">（优先微信联系，其他方式可能联系不到。）</span>'
+                /（优先微信联系）/g,
+                '<span style="margin-left: 10px; color: #9ca3af;">（优先微信联系）</span>'
             );
             
             return `
@@ -908,7 +942,13 @@ ${content}
         window.selectDesktop = function(e, id) {
             e.stopPropagation();
             state.selectedDesktopId = id;
-            renderDesktop(); 
+            renderDesktop();
+
+            if (id === 'secret') {
+                openSecretFolder();
+            } else {
+                openFolder(id);
+            }
         };
 
         window.deselectDesktop = function() {
@@ -920,6 +960,53 @@ ${content}
                 state.langDropdownOpen = false;
                 renderTopBar();
             }
+            if (state.openFolderId && !state.isClosing) {
+                closeWindow();
+            }
+        };
+
+        function getDesktopIconAtPoint(x, y) {
+            return Array.from(document.querySelectorAll('[data-desktop-id]')).find(icon => {
+                const rect = icon.getBoundingClientRect();
+                return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+            });
+        }
+
+        window.clearDesktopBackdropHover = function() {
+            document.querySelectorAll('[data-desktop-id]').forEach(icon => {
+                icon.style.backgroundColor = '';
+                icon.style.opacity = '';
+            });
+        };
+
+        window.handleWindowBackdropPointer = function(e) {
+            const hoveredIcon = getDesktopIconAtPoint(e.clientX, e.clientY);
+            clearDesktopBackdropHover();
+
+            if (hoveredIcon && hoveredIcon.dataset.desktopId !== state.selectedDesktopId) {
+                hoveredIcon.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+                if (hoveredIcon.classList.contains('opacity-60')) hoveredIcon.style.opacity = '1';
+            }
+
+            e.currentTarget.style.cursor = hoveredIcon ? 'pointer' : 'default';
+        };
+
+        window.handleWindowBackdropClick = function(e) {
+            const clickedIcon = getDesktopIconAtPoint(e.clientX, e.clientY);
+
+            if (clickedIcon) {
+                const id = clickedIcon.dataset.desktopId;
+                state.selectedDesktopId = id;
+                renderDesktop();
+                if (id === 'secret') {
+                    openSecretFolder();
+                } else {
+                    openFolder(id);
+                }
+                return;
+            }
+
+            closeWindow();
         };
 
         window.openSecretFolder = function() {
@@ -1089,26 +1176,45 @@ ${content}
         window.openFolder = function(id) {
             // If already open, do nothing (or we could focus it)
             if (state.openFolderId === id && !state.isClosing) return;
+
+            const isSwitchingFolder = Boolean(state.openFolderId && state.openFolderId !== id);
             
             state.openFolderId = id;
             state.isClosing = false; // Reset close state
 
             if (id === 'websites') {
-                state.selectedFileId = WEBSITE_FILES[0].id;
                 // Preload all website images when opening the folder
                 preloadAllWebsiteImages();
             }
             if (id === 'videos') state.selectedVideoId = VIDEO_FILES[0].id;
-            if (id === 'photos') {
-                state.selectedPhotoId = PHOTO_FILES[0].id;
-                state.galleryViewMode = 'single';
+            renderWindow();
+
+            if (isSwitchingFolder) {
+                const win = document.getElementById('active-window');
+                if (win) {
+                    win.classList.remove('window-enter', 'window-exit');
+                    void win.offsetWidth;
+                    win.classList.add('window-enter');
+                }
             }
-            renderWindow(); 
+
+            if (id === 'websites' && !state.hasShownDetailsIntro) {
+                clearTimeout(state.detailsIntroTimer);
+                state.detailsIntroTimer = setTimeout(() => {
+                    if (state.openFolderId === 'websites' && !state.isClosing && !state.hasShownDetailsIntro) {
+                        state.hasShownDetailsIntro = true;
+                        state.detailsIntroTimer = null;
+                        if (!state.isDetailsExpanded) toggleDetails('intro');
+                    }
+                }, 900);
+            }
         };
 
         window.closeWindow = function() {
             const win = document.getElementById('active-window');
             if (win && !state.isClosing) {
+                clearTimeout(state.detailsIntroTimer);
+                state.detailsIntroTimer = null;
                 state.isClosing = true;
                 // Add exit animation class
                 win.classList.remove('window-enter');
@@ -1153,7 +1259,12 @@ ${content}
             }
         };
 
-        window.toggleDetails = function() {
+        window.toggleDetails = function(source = 'user') {
+            if (source === 'user' && !state.hasShownDetailsIntro) {
+                clearTimeout(state.detailsIntroTimer);
+                state.detailsIntroTimer = null;
+                state.hasShownDetailsIntro = true;
+            }
             state.isDetailsExpanded = !state.isDetailsExpanded;
             
             // Use smooth animation with DOM manipulation
